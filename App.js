@@ -9,13 +9,19 @@ import { Home } from './screens/Home';
 import { Itinerary } from './screens/Itinerary';
 import { Friends } from './screens/Friends';
 import { Setting } from './screens/Setting';
+import store from './store';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux'
 
 const Tab = createBottomTabNavigator()
 export default function App() {
   return (
-    
+    <Provider store={store}>
+    <StatusBar/>
     <NativeBaseProvider>
-      <Login/>
+      <SafeAreaView style={{flex: 1}}>
+      {/* <Login/> */}
+      <Register/>
       <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Home" component={Home} />
@@ -23,8 +29,10 @@ export default function App() {
         <Tab.Screen name="Friends" component={Friends} />
         <Tab.Screen name="Settings" component={Setting} />
       </Tab.Navigator>
-    </NavigationContainer>
+      </NavigationContainer>
+      </SafeAreaView>
     </NativeBaseProvider>
+    </Provider>
   )
 }
 

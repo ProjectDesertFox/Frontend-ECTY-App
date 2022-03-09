@@ -9,7 +9,6 @@ export  const Login = ({navigation}) => {
             <Heading mt="1">
             <Text>Log In</Text>
             </Heading>
-
             <VStack space={3} mt="5">
                 <FormControl>
                     <FormControl.Label>Email</FormControl.Label>
