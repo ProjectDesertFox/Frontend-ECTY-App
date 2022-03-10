@@ -20,8 +20,6 @@ export default function App() {
     <StatusBar/>
     <NativeBaseProvider>
       <SafeAreaView style={{flex: 1}}>
-      {/* <Login/> */}
-      <Register/>
       <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Home" component={Home} />

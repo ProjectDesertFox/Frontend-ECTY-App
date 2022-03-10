@@ -2,7 +2,7 @@ import { USERSTATUS_CHANGED, USER_ERROR, USER_LOADING } from '../actionKeys'
 
 
 const initialState = {
-  status: 'register email',
+  statusValidEmail: '1',
   error: null,
   loading: false
 }
