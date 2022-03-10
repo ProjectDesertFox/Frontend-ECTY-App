@@ -15,10 +15,11 @@ export default function App() {
   return (
     
     <NativeBaseProvider>
-      <Login/>
+      {/* <Login/> */}
       <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Home" component={Home} />
+        {/* <Tab.Screen name="Login" component={Login} /> */}
         <Tab.Screen name="Itinerary" component={Itinerary} />
         <Tab.Screen name="Friends" component={Friends} />
         <Tab.Screen name="Settings" component={Setting} />
