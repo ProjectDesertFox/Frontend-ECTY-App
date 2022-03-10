@@ -58,8 +58,15 @@ export default function App() {
                 ),
               }} />
               <Tab.Screen name="Register" component={Register} options={{
-                headerShown: true,
+                headerShown: false,
                 title : 'Register',
+                tabBarIcon: (props) => (
+                  <Icon type='feather' name='log-in' color={props.color} />
+                ),
+              }} />
+              <Tab.Screen name="Login" component={Login} options={{
+                headerShown: false,
+                title : 'Login',
                 tabBarIcon: (props) => (
                   <Icon type='feather' name='log-in' color={props.color} />
                 ),

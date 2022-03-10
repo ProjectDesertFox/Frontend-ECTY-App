@@ -1,10 +1,29 @@
 import { Box, Input, Button, Text, Center, Heading, VStack, FormControl, Link, HStack } from 'native-base'
 import React, {useState} from 'react';
+import { loginUser } from '../store/actions/userActions';
+import { useSelector, useDispatch } from 'react-redux';
+
 export  const Login = ({navigation}) => {
-    const [value, setValue] = useState({email: '', password: ''})
-    
+    const dispatch = useDispatch()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    async function login(){
+        let loginProcess = await dispatch(loginUser(email, password))
+        // let access_token = async () => {
+        // try {
+        //     const value = await AsyncStorage.getItem('access_token');
+        //     if (value !== null) {
+        //     // We have data!!
+        //     console.log(value, 'ACESSTOKEN');
+        //     }
+        // } catch (error) {
+        //     // Error retrieving data
+        // }
+        // };
+    }
+
     return <Center w="100%">
-        <Text>{JSON.stringify(value)}</Text>
         <Box safeArea p="2" py="8" w="90%" maxW="290">
             <Heading mt="1">
             <Text>Log In</Text>
@@ -12,13 +31,13 @@ export  const Login = ({navigation}) => {
             <VStack space={3} mt="5">
                 <FormControl>
                     <FormControl.Label>Email</FormControl.Label>
-                    <Input />
+                    <Input placeholder="Insert your email" value={email} onChangeText={setEmail}/>
                 </FormControl>
                 <FormControl>
                     <FormControl.Label>Password</FormControl.Label>
-                    <Input type="password" />
+                    <Input type="password" placeholder="Insert your password" value={password} onChangeText={setPassword} />
                 </FormControl>
-                <Button mt="2" colorScheme="indigo">
+                <Button onPress={() => login()} mt="2" colorScheme="indigo">
                     Sign in
                 </Button>
                 <HStack mt="6" justifyContent="center">
