@@ -9,7 +9,6 @@ export  const Login = ({navigation}) => {
             <Heading mt="1">
             <Text>Log In</Text>
             </Heading>
-
             <VStack space={3} mt="5">
                 <FormControl>
                     <FormControl.Label>Email</FormControl.Label>
@@ -26,7 +25,7 @@ export  const Login = ({navigation}) => {
                     <Text fontSize="sm" color="coolGray.600" _dark={{
                         color: "warmGray.200"
                     }}>
-                        Don't have an account yet? .{" "}
+                        Don't have an account yet? . {" "}
                     </Text>
                 <Text onPress={() => navigation.navigate('Settings')}>Sign up</Text>
                 </HStack>
