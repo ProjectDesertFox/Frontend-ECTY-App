@@ -35,11 +35,12 @@ export const Friends = () => {
     return (
         // <SafeAreaView style={{flex:1}}>
             <ScrollView>
-                <View style={{margin: 10}}>
+                <View style={{margin: 10 }}>
                 <SearchBar
                     placeholder="Add Friends"
                     onChangeText={updateSearch}
                     value={search}
+                    style={{ backgroundColor:"white"}}
                 />
                 </View>
                 <View >
