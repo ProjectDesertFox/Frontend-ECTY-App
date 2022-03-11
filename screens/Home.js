@@ -24,8 +24,9 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import MapView, { Callout, Circle, Marker } from "react-native-maps"
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../style/colors';
+// import { NavigationContainer } from '@react-navigation/native';
 const {width} = Dimensions.get('screen');
-export const Home = () => {
+export const Home = ({navigation}) => {
     const ItenerariesCard=({itenerary}) =>{
 
         const [showModal, setShowModal] = useState(false);
@@ -82,7 +83,7 @@ export const Home = () => {
         return (
           <TouchableOpacity       
             activeOpacity={0.8}
-           
+            // onPress={()=>NavigationContainer.navigate('Register')}
             >
             <ImageBackground style={style.cardImage} source={{uri: place.image}} > 
               <Text
@@ -125,24 +126,27 @@ export const Home = () => {
 
     const GridCity = ({city})=>{
         return (
-            <View style={{flex:1,flexDirection:'column',marginRight:5, marginLeft:5, marginBottom:5 }}>
-                <ImageBackground style={{width:'100%', height:120}}source={{uri: city.image}}>
-                <View
-                style={{
-                    flex: 1,
-                    justifyContent: 'space-between',
-                    flexDirection: 'row',
-                    padding:6
-                }}>
-                <View style={{flexDirection: 'row'}}>
-                  {/* <Icon name="place" size={20} color={COLORS.white} /> */}
-                  <Text style={{marginLeft: 5, color: COLORS.white, fontSize:17,fontWeight:'bold'}}>
-                    {city.name}
-                  </Text>
+            <TouchableOpacity style={{flex:1,flexDirection:'column',marginRight:5, marginLeft:5, marginBottom:5 }} onPress={()=>navigation.navigate('DetailCity')}>
+
+                <View >
+                    <ImageBackground style={{width:'100%', height:120}}source={{uri: city.image}}>
+                    <View
+                    style={{
+                        flex: 1,
+                        justifyContent: 'space-between',
+                        flexDirection: 'row',
+                        padding:6
+                    }}>
+                    <View style={{flexDirection: 'row'}}>
+                    {/* <Icon name="place" size={20} color={COLORS.white} /> */}
+                    <Text style={{marginLeft: 5, color: COLORS.white, fontSize:17,fontWeight:'bold'}}>
+                        {city.name}
+                    </Text>
+                    </View>
                 </View>
-              </View>
-                </ImageBackground>
-            </View>
+                    </ImageBackground>
+                </View>
+            </TouchableOpacity>
         )
     }
 
