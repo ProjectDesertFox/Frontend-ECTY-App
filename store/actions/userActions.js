@@ -1,7 +1,6 @@
 import { USERSTATUS_CHANGED, USEREMAILCODE_CHANGED, USER_LOADING, USER_ERROR } from "../actionKeys";
 import axios from 'axios'
-import { AsyncStorage } from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // https://ecty-backend.herokuapp.com/
 
 export function stepOneEmail(UserEmail){
@@ -109,23 +108,37 @@ export function loginUser(email, password){
       data: {email: email, password: password}
     })
     .then(({data}) => {
-      // console.log(data)
-      // let storeData = async () => {
-      //   try {
-      //     await AsyncStorage.setItem('access_token', data.access_token)
-      //   } catch (error) {
-      //     throw(error)
-      //   }
-      // }
-      // let storeData =static setItem(key: string, value: string, [callback]: ?(error: ?Error) => void)
+      return storeAcessToken(data.access_token)
+    })
+    .then(() => {
+      return getAccessToken()
+    })
+    .then((response) => {
     })
     .catch(err => {
-      console.log(err, 'LOGIN ERROR')
       dispatch(userError(err))
     })
     .finally(() => {
       dispatch(userLoading(false))
     })
+  }
+}
+
+const storeAcessToken = async (access_token) => {
+  try {
+    await AsyncStorage.setItem('access_token', access_token)
+  } catch (e) {
+    console.log(e, 'FAIL STORING DATA')
+    return e
+  }
+}
+
+export const getAccessToken = async () => {
+  try {
+    const values = await AsyncStorage.getItem('access_token')
+    return values
+  } catch(e) {
+    return e
   }
 }
 
