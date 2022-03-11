@@ -1,5 +1,5 @@
 import { Divider, Image, Center, Box, Text, Button } from "native-base";
-export default function Profile (props) {
+export default function Profile(props) {
     return (
         <Box mt={5}>
             <Center>
@@ -38,15 +38,22 @@ export default function Profile (props) {
                 <Text fonstSize='lg'>Canberra ACT2601, Australia</Text>
             </Box>
             <Divider my="2" mx="5" bg="#DFE6E9" thickness="2" />
-            <Box Flex flexDirection='row' justifyContent='space-between' px={5} mt={5}>
-                {/* <Button colorScheme="success"
-                onPress={() => navigation.navigate("Login", {
-                })}
-                >
-                    Login
-                </Button> */}
-                <Button colorScheme="success">
-                    Register
+            <Box Flex flexDirection='row' justifyContent='space-between' px={1} mt={5}>
+                <Button mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
+                    marginLeft: 4,
+                    marginRight: 4,
+                    color: "white",
+                    fontWeight: "bold"
+                }} px="3">
+                    LOGIN
+                </Button>
+                <Button mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
+                    marginLeft: 4,
+                    marginRight: 4,
+                    color: "white",
+                    fontWeight: "bold"
+                }} px="3">
+                    LOGOUT
                 </Button>
             </Box>
         </Box>
