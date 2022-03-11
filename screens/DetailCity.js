@@ -8,7 +8,8 @@ export const DetailCity=()=>{
         <ScrollView horizontal={true}>
         <Box
             alignSelf="center"
-            bg="primary.100"
+            bg="gray.50"
+
             borderRadius={7}
             width={100}
             shadow={5}
@@ -26,7 +27,8 @@ export const DetailCity=()=>{
         </Box>
         <Box
             alignSelf="center"
-            bg="primary.100"
+            bg="gray.50"
+
             borderRadius={7}
             width={100}
             shadow={5}
@@ -44,7 +46,8 @@ export const DetailCity=()=>{
         </Box>
         <Box
             alignSelf="center"
-            bg="primary.100"
+                        bg="gray.50"
+
             borderRadius={7}
             width={100}
             shadow={5}
@@ -65,7 +68,8 @@ export const DetailCity=()=>{
     <ScrollView>
         <Box
             alignSelf="center"
-            bg="primary.100"
+                        bg="gray.50"
+
             borderRadius={7}
             width="95%"
             shadow={5}
@@ -95,7 +99,8 @@ export const DetailCity=()=>{
         </Box>
         <Box
             alignSelf="center"
-            bg="primary.100"
+            bg="gray.50"
+
             borderRadius={7}
             width="95%"
             shadow={5}
@@ -125,7 +130,8 @@ export const DetailCity=()=>{
         </Box>
         <Box
             alignSelf="center"
-            bg="primary.100"
+            bg="gray.50"
+
             borderRadius={7}
             width="95%"
             shadow={5}
@@ -155,7 +161,8 @@ export const DetailCity=()=>{
         </Box>
         <Box
             alignSelf="center"
-            bg="primary.100"
+            bg="gray.50"
+
             borderRadius={7}
             width="95%"
             shadow={5}
@@ -185,7 +192,8 @@ export const DetailCity=()=>{
         </Box>
         <Box
             alignSelf="center"
-            bg="primary.100"
+            bg="gray.50"
+
             borderRadius={7}
             width="95%"
             shadow={5}
@@ -215,7 +223,8 @@ export const DetailCity=()=>{
         </Box>
         <Box
             alignSelf="center"
-            bg="primary.100"
+                        bg="gray.50"
+
             borderRadius={7}
             width="95%"
             shadow={5}
@@ -245,7 +254,8 @@ export const DetailCity=()=>{
         </Box>
         <Box
             alignSelf="center"
-            bg="primary.100"
+            bg="gray.50"
+
             borderRadius={7}
             width="95%"
             shadow={5}
@@ -275,7 +285,7 @@ export const DetailCity=()=>{
         </Box>
         <Box
             alignSelf="center"
-            bg="primary.100"
+           backgroundColor="gray.50"
             borderRadius={7}
             width="95%"
             shadow={5}
