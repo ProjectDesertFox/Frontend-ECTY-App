@@ -22,6 +22,7 @@ import cities from '../data/city';
 import rates from '../data/bestRate'
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 import MapView, { Callout, Circle, Marker } from "react-native-maps"
+
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../style/colors';
 // import { NavigationContainer } from '@react-navigation/native';
@@ -33,7 +34,6 @@ export const Home = ({navigation}) => {
         const [showModal2, setShowModal2] = useState(false);
         const [showModal3, setShowModal3] = useState(false);
         return(
-            
             <View>
                 <TouchableOpacity       
                 activeOpacity={0.8}
@@ -224,6 +224,7 @@ export const Home = ({navigation}) => {
                     </Marker>
                     <Circle center={pin} radius={1000} />
                 </MapView>
+                {/* batas akhir map */}
             </View>
                 <View>
                     <Text style={style.sectionTitle}>Iteneraries Available</Text>
