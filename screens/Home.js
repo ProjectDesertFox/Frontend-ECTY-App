@@ -126,7 +126,7 @@ export const Home = ({navigation}) => {
 
     const GridCity = ({city})=>{
         return (
-            <TouchableOpacity style={{flex:1,flexDirection:'column',marginRight:5, marginLeft:5, marginBottom:5 }} onPress={()=>navigation.navigate('DetailCity')}>
+            <TouchableOpacity style={{flex:1,flexDirection:'column',marginRight:5, marginLeft:5, marginBottom:5 }} onPress={()=>navigation.navigate('DetailCity',{id:city.id})}>
 
                 <View >
                     <ImageBackground style={{width:'100%', height:120}}source={{uri: city.image}}>
