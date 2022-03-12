@@ -1,26 +1,15 @@
 import { Box, Input, Button, Text, Center, Heading, VStack, FormControl, Link, HStack } from 'native-base'
-import React, {useState} from 'react';
-import { loginUser } from '../store/actions/userActions';
+import React, {useState, useEffect} from 'react';
+import { getAccessToken, loginUser, userError } from '../store/actions/userActions';
 import { useSelector, useDispatch } from 'react-redux';
 
 export  const Login = ({navigation}) => {
     const dispatch = useDispatch()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    
     async function login(){
-        let loginProcess = await dispatch(loginUser(email, password))
-        // let access_token = async () => {
-        // try {
-        //     const value = await AsyncStorage.getItem('access_token');
-        //     if (value !== null) {
-        //     // We have data!!
-        //     console.log(value, 'ACESSTOKEN');
-        //     }
-        // } catch (error) {
-        //     // Error retrieving data
-        // }
-        // };
+        dispatch(loginUser(email, password))
     }
 
     return <Center w="100%">
