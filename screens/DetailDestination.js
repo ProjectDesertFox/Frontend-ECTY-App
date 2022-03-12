@@ -20,14 +20,6 @@ export const DetailDestination = ({ navigation }) => {
         <>
             <ScrollView>
                 <Center>
-                    {/* <Image
-                        size={200}
-                        resizeMode="cover"
-                        source={{
-                            uri: "https://wallpaperaccess.com/full/317501.jpg"
-                        }}
-                        alt={"Alternate Text"}
-                    /> */}
                     <AspectRatio w="100%" ratio={16 / 9}>
                         <Image source={{
                             uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg"

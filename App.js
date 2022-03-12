@@ -18,7 +18,8 @@ import { DetailCity } from './screens/DetailCity';
 import { DetailDestination } from './screens/DetailDestination';
 // import { ItineraryVerifikasi } from './screens/ItineraryVerification';
 // import { Transportation } from './screens/Transportation';
-import BudgetCalculation from './screens/BudgetCalculation';
+// import BudgetCalculation from './screens/BudgetCalculation';
+import PremiumUser from './screens/PremiumUser';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -34,7 +35,7 @@ export default function App() {
             <Stack.Screen name="DetailCity" component={DetailCity} />
           </Stack.Navigator> */}
           <Tab.Navigator tabBarOptions={{ activeTintColor: '#00CEC9' }}>
-            <Tab.Screen name="Budget" component={BudgetCalculation} />
+            <Tab.Screen name="Premium" component={PremiumUser} />
             {/* <Tab.Screen name="DetailCity" component={DetailCity} /> */}
             {/* <Tab.Screen name="Transportation" component={Transportation} />
             <Tab.Screen name="ItineraryVerifikasi" component={ItineraryVerifikasi} /> */}
