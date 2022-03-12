@@ -16,6 +16,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DetailCity } from './screens/DetailCity';
 import { DetailDestination } from './screens/DetailDestination';
+import { ItineraryVerifikasi } from './screens/ItineraryVerification';
+import { Transportation } from './screens/Transportation';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -32,6 +34,8 @@ export default function App() {
           </Stack.Navigator> */}
           <Tab.Navigator tabBarOptions={{ activeTintColor: '#00CEC9' }}>
             <Tab.Screen name="DetailCity" component={DetailCity} />
+            <Tab.Screen name="Transportation" component={Transportation} />
+            <Tab.Screen name="ItineraryVerifikasi" component={ItineraryVerifikasi} />
             <Tab.Screen name="Destination" component={DetailDestination} options={{
               headerShown: true,
               tabBarIcon: (props) => (
