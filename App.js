@@ -22,6 +22,7 @@ import { ItineraryTab } from './tab/ItineraryTab';
 import { HomeTab } from './tab/HomeTab';
 import { getAccessToken } from './store/actions/userActions';
 import { useEffect } from 'react';
+// import { BudgetCalculation } from './screens/BudgetCalculation'; 
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -29,55 +30,55 @@ const Tab = createBottomTabNavigator()
 export default function App() {
   // let statusLogin = useSelector(state=>state.user.statusLogin)
   // console.log(statusLogin)
-  useEffect(()=>{
+  useEffect(() => {
     getAccessToken
-  },[getAccessToken])
+  }, [getAccessToken])
   return (
-      <Provider store={store}>
-        <NativeBaseProvider>
-          <NavigationContainer>
-            <Tab.Navigator tabBarOptions={{ activeTintColor: '#00CEC9' }}>
-              <Tab.Screen name="HomeTab" component={HomeTab} options={{
-                headerShown: false,
-                tabBarIcon: (props) => (
-                  <Icon type='feather' name='home' color={props.color} />
-                ),
-                title:'Home'
-              }} />
-              {/* {
+    <Provider store={store}>
+      <NativeBaseProvider>
+        <NavigationContainer>
+          <Tab.Navigator tabBarOptions={{ activeTintColor: '#00CEC9' }}>
+            <Tab.Screen name="HomeTab" component={HomeTab} options={{
+              headerShown: false,
+              tabBarIcon: (props) => (
+                <Icon type='feather' name='home' color={props.color} />
+              ),
+              title: 'Home'
+            }} />
+            {/* {
                 statusLogin ?
                 <> */}
-                  <Tab.Screen name="ItineraryTab" component={ItineraryTab} options={{
-                    headerShown: false,
-                    tabBarIcon: (props) => (
-                      <Icon type='feather' name='check-circle' color={props.color} />
-                    ),
-                    title:'Itinerary'
-                  }} />
-                  
-                  <Tab.Screen name="Friends" component={Register} options={{
-                    headerShown: true,
-                    tabBarIcon: (props) => (
-                      <Icon type='feather' name='user' color={props.color} />
-                    )
-                  }} />
-                {/* </>
+            <Tab.Screen name="ItineraryTab" component={ItineraryTab} options={{
+              headerShown: false,
+              tabBarIcon: (props) => (
+                <Icon type='feather' name='check-circle' color={props.color} />
+              ),
+              title: 'Itinerary'
+            }} />
+
+            <Tab.Screen name="Friends" component={Friends} options={{
+              headerShown: true,
+              tabBarIcon: (props) => (
+                <Icon type='feather' name='user' color={props.color} />
+              )
+            }} />
+            {/* </>
                 :
                 null
 
               } */}
-              <Tab.Screen name="Settings" component={Setting} options={{
-                headerShown: true,
-                title: 'Settings',
-                tabBarIcon: (props) => (
-                  <Icon type='feather' name='settings' color={props.color} />
-                )
-              }} />
+            <Tab.Screen name="Settings" component={Setting} options={{
+              headerShown: true,
+              title: 'Settings',
+              tabBarIcon: (props) => (
+                <Icon type='feather' name='settings' color={props.color} />
+              )
+            }} />
 
-            </Tab.Navigator>
-          </NavigationContainer>
-        </NativeBaseProvider>
-      </Provider>
+          </Tab.Navigator>
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </Provider>
   )
 }
 

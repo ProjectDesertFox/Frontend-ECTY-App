@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Center, Heading, Box, VStack, FormControl, HStack, Link, Button, Select, Input, CheckIcon, ScrollView, } from 'native-base'
+import DatePicker from 'react-native-date-picker'
 
 export const ItineraryForm = () => {
     let [service, setService] = React.useState("");
+    const [date, setDate] = useState(new Date())
+    const [open, setOpen] = useState(false)
+
     return (
         <ScrollView>
             <Center w="100%">
@@ -24,7 +28,20 @@ export const ItineraryForm = () => {
                             </Select>
 
                             <FormControl.Label>Star Date</FormControl.Label>
-                            <Input/>
+                            <Button title="Open" onPress={() => setOpen(true)} />
+                            <DatePicker
+                                modal
+                                open={open}
+                                date={date}
+                                onConfirm={(date) => {
+                                    setOpen(false)
+                                    setDate(date)
+                                }}
+                                onCancel={() => {
+                                    setOpen(false)
+                                }}
+                            />
+                            {/* <Input /> */}
                             <FormControl.Label>End Date</FormControl.Label>
                             <Input />
                             <FormControl.Label>Rating</FormControl.Label>
@@ -39,7 +56,7 @@ export const ItineraryForm = () => {
                                 <Select.Item label="Public" value="Public" />
                                 <Select.Item label="Private" value="Private" />
                                 <Select.Item label="Solo" value="Solo" />
-        
+
                             </Select>
                             <FormControl.Label>Sharing member slot</FormControl.Label>
                             <Input />
@@ -50,7 +67,7 @@ export const ItineraryForm = () => {
                     </VStack>
                 </Box>
             </Center>
-            
+
         </ScrollView>
     )
 }
