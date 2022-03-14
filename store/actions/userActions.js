@@ -13,13 +13,14 @@ export function stepOneEmail(UserEmail){
       data: { UserEmail }
     })
     .then(({data}) => {
+      console.log(data, "data stepone")
       data = data.data
       // console.log(data, 'RESULT STEP ONE')
       dispatch(changeUserStatus(data.statusValidEmail))
       dispatch(changeUserCode(data.UniqueNumberVerificationEmail))
     })
     .catch(err => {
-      console.log(err, 'ERROR STEP ONE')
+      console.log(err)
       dispatch(userError(err))
     })
     .finally(() => {
@@ -111,7 +112,7 @@ export function loginUser(email, password, navigation){
     })
     .then(({data}) => {
       dispatch(changeAccessToken(true))
-      navigation.navigate('Settings')
+      navigation.navigate('SettingTab')
       return storeAcessToken(data.access_token)
     })
     // .then(() => {

@@ -22,6 +22,7 @@ import { ItineraryTab } from './tab/ItineraryTab';
 import { HomeTab } from './tab/HomeTab';
 import { getAccessToken } from './store/actions/userActions';
 import { useEffect } from 'react';
+import { SettingTab } from './tab/SettingTab';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -66,9 +67,9 @@ export default function App() {
                 null
 
               } */}
-              <Tab.Screen name="Settings" component={Setting} options={{
-                headerShown: true,
-                title: 'Settings',
+              <Tab.Screen name="SettingTab" component={SettingTab} options={{
+                headerShown: false,
+                title: 'Setting',
                 tabBarIcon: (props) => (
                   <Icon type='feather' name='settings' color={props.color} />
                 )
