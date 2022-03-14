@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -15,7 +15,7 @@ import {
   SPACING
  
 } from 'react-native';
-import { Modal ,FormControl, Input,Button } from 'native-base';
+import { Modal ,FormControl, Input,Button, Stack } from 'native-base';
 import places from '../data/recomendation';
 import iteneraries from '../data/itenerary';
 import cities from '../data/city';
@@ -25,10 +25,23 @@ import MapView, { Callout, Circle, Marker } from "react-native-maps"
 
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../style/colors';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionGetItinerary } from '../store/actions/itineraryAction';
 // import { NavigationContainer } from '@react-navigation/native';
 const {width} = Dimensions.get('screen');
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {DetailCity} from './DetailCity'
+
+
 export const Home = ({navigation}) => {
-    const ItenerariesCard=({itenerary}) =>{
+    const Stack = createNativeStackNavigator();
+    const itineraries = useSelector(state=>state.itinerary.itineraries)
+    const dispatch = useDispatch()
+    
+    useEffect(()=>{
+        dispatch(actionGetItinerary())
+    },[])
+    const ItenerariesCard=({itineraries}) =>{
 
         const [showModal, setShowModal] = useState(false);
         const [showModal2, setShowModal2] = useState(false);
@@ -39,9 +52,9 @@ export const Home = ({navigation}) => {
                 activeOpacity={0.8}
                 onPress={() => setShowModal(true)}
                 >
-                <Image style={style.imageItenerary} source={{uri: itenerary.destination}} />
+                {/* <Image style={style.imageItenerary} source={{uri: itenerary.destination}} /> */}
                 <Text style={{marginRight:20}}>
-                    {itenerary.user}'s Itenerary
+                    {itineraries.UserId}'s Itenerary
                 </Text>
                 </TouchableOpacity>
                 <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
@@ -57,11 +70,11 @@ export const Home = ({navigation}) => {
                             <FormControl.Label>Email</FormControl.Label>
                             <Input />
                             </FormControl> */}
-                            <Image style={{height:150, width:'100%'}} source={{uri:itenerary.destination}}/>
-                            <Text>Destination: {itenerary.description}</Text>
-                            <Text>City: {itenerary.kota}</Text>
-                            <Text>Transportation: {itenerary.transportation}</Text>
-                            <Text>Budget: {itenerary.budget}</Text>
+                            {/* <Image style={{height:150, width:'100%'}} source={{uri:itineraries.destination}}/> */}
+                            <Text>Destination: {itineraries.destination}</Text>
+                            <Text>Transportation: {itineraries.transportation}</Text>
+                            <Text>Date Start: {itineraries.dateStart}</Text>
+                            <Text>Budget: {itineraries.budget}</Text>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button.Group space={2}>
@@ -161,112 +174,120 @@ export const Home = ({navigation}) => {
         )
     }
     return (
-        <SafeAreaView>
-            <ScrollView>
-                <View style={{flex:1/6}}>
-                {/* <GooglePlacesAutocomplete
-                    placeholder="Search"
-                    fetchDetails={true}
-                    GooglePlacesSearchQuery={{
-                        rankby: "distance"
-                    }}
-                    onPress={(data, details = null) => {
-                        // 'details' is provided when fetchDetails = true
-                        console.log(data, details)
-                        setRegion({
-                            latitude: details.geometry.location.lat,
-                            longitude: details.geometry.location.lng,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421
-                        })
-                    }}
-                    query={{
-                        key: "KEY",
-                        language: "en",
-                        components: "country:us",
-                        types: "establishment",
-                        radius: 30000,
-                        location: `${region.latitude}, ${region.longitude}`
-                    }}
-                    styles={{
-                        container: { flex: 0, position: "absolute", width: "100%", zIndex: 1 },
-                        listView: { backgroundColor: "white" }
-                    }}
-                /> */}
-                <MapView
-                    style={style.map}
-                    initialRegion={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421
-                    }}
-                    provider="google"
-                >
-                    <Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} />
-                    <Marker
-                        coordinate={pin}
-                        pinColor="black"
-                        draggable={true}
-                        onDragStart={(e) => {
-                            console.log("Drag start", e.nativeEvent.coordinates)
+        <>
+                {/* <Stack.Navigator>
+                    <Stack.Screen name="Home" component={Home} />
+                    <Stack.Screen name="DetailCity" component={DetailCity} />
+
+                </Stack.Navigator> */}
+            
+            <SafeAreaView>
+                <ScrollView>
+                    <View style={{flex:1/6}}>
+                    {/* <GooglePlacesAutocomplete
+                        placeholder="Search"
+                        fetchDetails={true}
+                        GooglePlacesSearchQuery={{
+                            rankby: "distance"
                         }}
-                        onDragEnd={(e) => {
-                            setPin({
-                                latitude: e.nativeEvent.coordinate.latitude,
-                                longitude: e.nativeEvent.coordinate.longitude
+                        onPress={(data, details = null) => {
+                            // 'details' is provided when fetchDetails = true
+                            console.log(data, details)
+                            setRegion({
+                                latitude: details.geometry.location.lat,
+                                longitude: details.geometry.location.lng,
+                                latitudeDelta: 0.0922,
+                                longitudeDelta: 0.0421
                             })
                         }}
+                        query={{
+                            key: "KEY",
+                            language: "en",
+                            components: "country:us",
+                            types: "establishment",
+                            radius: 30000,
+                            location: `${region.latitude}, ${region.longitude}`
+                        }}
+                        styles={{
+                            container: { flex: 0, position: "absolute", width: "100%", zIndex: 1 },
+                            listView: { backgroundColor: "white" }
+                        }}
+                    /> */}
+                    <MapView
+                        style={style.map}
+                        initialRegion={{
+                            latitude: 37.78825,
+                            longitude: -122.4324,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421
+                        }}
+                        provider="google"
                     >
-                        <Callout>
-                            <Text>I'm here</Text>
-                        </Callout>
-                    </Marker>
-                    <Circle center={pin} radius={1000} />
-                </MapView>
-                {/* batas akhir map */}
-            </View>
-                <View>
-                    <Text style={style.sectionTitle}>Iteneraries Available</Text>
-                    <FlatList nestedScrollEnabled
-                        contentContainerStyle={{paddingLeft: 15, paddingBottom: 15}}
-                        showsHorizontalScrollIndicator={false}
-                        horizontal
-                        data={iteneraries}
-                        renderItem={({item})=> <ItenerariesCard itenerary={item}/>}
-                        />
+                        <Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} />
+                        <Marker
+                            coordinate={pin}
+                            pinColor="black"
+                            draggable={true}
+                            onDragStart={(e) => {
+                                console.log("Drag start", e.nativeEvent.coordinates)
+                            }}
+                            onDragEnd={(e) => {
+                                setPin({
+                                    latitude: e.nativeEvent.coordinate.latitude,
+                                    longitude: e.nativeEvent.coordinate.longitude
+                                })
+                            }}
+                        >
+                            <Callout>
+                                <Text>I'm here</Text>
+                            </Callout>
+                        </Marker>
+                        <Circle center={pin} radius={1000} />
+                    </MapView>
+                    {/* batas akhir map */}
                 </View>
-                <View>
-                    <Text style={style.sectionTitle}>Recomended</Text>
-                    <FlatList nestedScrollEnabled
-                        snapToInterval={width - 15}
-                        contentContainerStyle={{paddingLeft: 15, paddingBottom: 15}}
-                        showsHorizontalScrollIndicator={false}
-                        horizontal
-                        data={places}
-                        renderItem={({item}) => <RecomendedCard place={item} />}
-                        />
-                </View>
-                <View>
-                    <Text style={style.sectionTitle}>Explore</Text>
-                    <FlatList nestedScrollEnabled
-                        numColumns={3}
-                        contentContainerStyle={{paddingLeft: 15, paddingBottom: 15, paddingRight:15}}
-                        data={cities}
-                        renderItem={({item})=> <GridCity city={item}/>}
-                        keyExtractor={(_,index)=> index.toString()}
-                        />
-                </View>
-                <View>
-                    <Text style={style.sectionTitle}>Best Rate</Text>
-                    <FlatList nestedScrollEnabled
-                        contentContainerStyle={{paddingLeft:15,paddingRight:20}}
-                        data={rates}
-                        renderItem={({item}) => <BestRate rate={item} />}
-                        />
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+                    <View>
+                        <Text style={style.sectionTitle}>Iteneraries Available</Text>
+                        <FlatList nestedScrollEnabled
+                            contentContainerStyle={{paddingLeft: 15, paddingBottom: 15}}
+                            showsHorizontalScrollIndicator={false}
+                            horizontal
+                            data={itineraries}
+                            renderItem={({item})=> <ItenerariesCard itineraries={item}/>}
+                            />
+                    </View>
+                    <View>
+                        <Text style={style.sectionTitle}>Recomended</Text>
+                        <FlatList nestedScrollEnabled
+                            snapToInterval={width - 15}
+                            contentContainerStyle={{paddingLeft: 15, paddingBottom: 15}}
+                            showsHorizontalScrollIndicator={false}
+                            horizontal
+                            data={places}
+                            renderItem={({item}) => <RecomendedCard place={item} />}
+                            />
+                    </View>
+                    <View>
+                        <Text style={style.sectionTitle}>Explore</Text>
+                        <FlatList nestedScrollEnabled
+                            numColumns={3}
+                            contentContainerStyle={{paddingLeft: 15, paddingBottom: 15, paddingRight:15}}
+                            data={cities}
+                            renderItem={({item})=> <GridCity city={item}/>}
+                            keyExtractor={(_,index)=> index.toString()}
+                            />
+                    </View>
+                    <View>
+                        <Text style={style.sectionTitle}>Best Rate</Text>
+                        <FlatList nestedScrollEnabled
+                            contentContainerStyle={{paddingLeft:15,paddingRight:20}}
+                            data={rates}
+                            renderItem={({item}) => <BestRate rate={item} />}
+                            />
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
+        </>
     )
 }
 
