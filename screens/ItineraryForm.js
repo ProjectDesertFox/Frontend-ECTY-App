@@ -43,7 +43,22 @@ export const ItineraryForm = () => {
                             />
                             {/* <Input /> */}
                             <FormControl.Label>End Date</FormControl.Label>
-                            <Input />
+                            {/* <Button title={'open'} onPress={openDatePicker}/> */}
+                            <Button mx={5} borderRadius={70} width={130} colorScheme="red" size="sm" variant={"solid"} _text={{
+                                marginLeft: 4,
+                                marginRight: 4,
+                                color: "white",
+                                fontWeight: "bold"
+                            }} px="3" onPress={openDatePicker}>
+                                Pick Date
+                            </Button>
+
+                            <DatePicker
+                                isVisible={showDatePicker}
+                                mode={'single'}
+                                onCancel={onCancel}
+                                onConfirm={onConfirm}
+                            />
                             <FormControl.Label>Rating</FormControl.Label>
                             <Input />
                             <FormControl.Label>Budget</FormControl.Label>

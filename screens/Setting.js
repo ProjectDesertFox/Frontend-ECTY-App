@@ -5,13 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 
 export default function Profile({ navigation }) {
     let access_token = useSelector(state => state.user.access_token)
-    // const [access_token, setAccessToken] = useState(false)
     let dispatch = useDispatch()
     console.log(access_token)
 
     useEffect(() => {
         dispatch(getAccessToken())
-        // dispatch(getAccessToken())
     }, [])
     return (
         <>
@@ -56,14 +54,14 @@ export default function Profile({ navigation }) {
                         </Box>
                         <Divider my="2" mx="5" bg="#DFE6E9" thickness="2" />
                         <Box Flex flexDirection='row' justifyContent='space-between' px={1} mt={5}>
-                            <Button mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
+                            {/* <Button mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
                                 marginLeft: 4,
                                 marginRight: 4,
                                 color: "white",
                                 fontWeight: "bold"
                             }} px="3" onPress={() => navigation.navigate('Login')}>
                                 LOGIN
-                            </Button>
+                            </Button> */}
                             <Button mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
                                 marginLeft: 4,
                                 marginRight: 4,
@@ -78,7 +76,7 @@ export default function Profile({ navigation }) {
                     </Box>
                     :
                     <Center mt={10}>
-                        <Button mx={5} borderRadius={70} width={130} colorScheme="red" size="sm" variant={"solid"} _text={{
+                        <Button mx={5} borderRadius={70} width={130} colorScheme="blue" size="sm" variant={"solid"} _text={{
                             marginLeft: 4,
                             marginRight: 4,
                             color: "white",
