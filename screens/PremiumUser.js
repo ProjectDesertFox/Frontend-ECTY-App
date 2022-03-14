@@ -1,7 +1,9 @@
 import { Text, Box, Button, Center, AspectRatio, Image, ScrollView, VStack, Heading, Stack, Divider } from 'native-base'
 import React from 'react'
+import {useNavigation} from '@react-navigation/native'
 
 export default function PremiumUser() {
+    const navigation = useNavigation()
     return (
         <>
             {/* <Text mx={4} my={2} fontSize='2xl' bold>Payment</Text>
@@ -54,6 +56,17 @@ export default function PremiumUser() {
                                 fontWeight: "bold"
                             }} px="3">
                                 Pay
+                            </Button>
+                        </Center>
+                        <Center mt={5}>
+                            <Button mx={10} borderRadius={70} colorScheme="green" size="lg" variant={"solid"} _text={{
+                                marginLeft: 4,
+                                marginRight: 4,
+                                color: "white",
+                                fontWeight: "bold"
+                            }} px="3"
+                            onPress={()=> navigation.navigate('Login')}>
+                                Login
                             </Button>
                         </Center>
                         {/* <Center size="16" bg="primary.400" rounded="sm" _text={{

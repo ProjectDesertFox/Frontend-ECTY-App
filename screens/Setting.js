@@ -1,5 +1,6 @@
 import { Divider, Image, Center, Box, Text, Button } from "native-base";
-export default function Profile(props) {
+
+export const Setting = ({ navigation }) => {
     return (
         <Box mt={5}>
             <Center>
@@ -39,12 +40,14 @@ export default function Profile(props) {
             </Box>
             <Divider my="2" mx="5" bg="#DFE6E9" thickness="2" />
             <Box Flex flexDirection='row' justifyContent='space-between' px={1} mt={5}>
-                <Button mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
+                <Button mx={5} borderRadius={70} colorScheme="blue" size="sm" variant={"solid"} _text={{
                     marginLeft: 4,
                     marginRight: 4,
                     color: "white",
                     fontWeight: "bold"
-                }} px="3">
+                }} px="3"
+                    onPress={() => navigation.navigate('Login')}
+                >
                     LOGIN
                 </Button>
                 <Button mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
@@ -52,7 +55,9 @@ export default function Profile(props) {
                     marginRight: 4,
                     color: "white",
                     fontWeight: "bold"
-                }} px="3">
+                }} px="3"
+                    onPress={() => navigation.navigate('Setting')}
+                >
                     LOGOUT
                 </Button>
             </Box>

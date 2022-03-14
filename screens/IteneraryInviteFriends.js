@@ -1,7 +1,7 @@
 import { Box, Icon, Input, Image, Text, Flex, Button } from "native-base";
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView } from "react-native";
-export const Friends = () => {
+export const IteneraryInviteFriends = () => {
     return (
         <>
             <Box width="100%">

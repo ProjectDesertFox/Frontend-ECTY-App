@@ -1,20 +1,4 @@
 import { Divider, Image, Center, Box, Text, AspectRatio, Stack, HStack, ScrollView, Progress, Button } from "native-base";
-// import { Button } from "react-native";
-// import React, { useState } from 'react';
-// import { StyleSheet, Dimensions } from "react-native";
-// import MapView, { Callout, Circle, Marker } from "react-native-maps"
-
-// const { width } = Dimensions.get('screen');
-// const [ pin, setPin ] = React.useState({
-//     latitude: 37.78825,
-//     longitude: -122.4324
-// })
-// const [ region, setRegion ] = React.useState({
-//     latitude: 37.78825,
-//     longitude: -122.4324,
-//     latitudeDelta: 0.0922,
-//     longitudeDelta: 0.0421
-// })
 export const DetailDestination = ({ navigation }) => {
     return (
         <>
