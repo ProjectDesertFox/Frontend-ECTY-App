@@ -54,7 +54,7 @@ export function stepTwoVerifyEmail(UserEmail, UniqueNumberVerificationEmail){
   }
 }
 
-export function stepThreeRegisterAccount(username, email, password){
+export function stepThreeRegisterAccount(username, email, password, navigation){
   return (dispatch, previousState) => {
     console.log('REGISTERING')
     dispatch(userLoading(true))
@@ -64,7 +64,9 @@ export function stepThreeRegisterAccount(username, email, password){
       data: {username, email, password}
     })
     .then(({data}) => {
+      console.log(data)
       dispatch(changeUserStatus('done'))
+      navigation.navigate('Login')
     })
     .catch(err => {
       dispatch(userError(err))

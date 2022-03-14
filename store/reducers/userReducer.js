@@ -2,7 +2,7 @@ import { USEREMAILCODE_CHANGED, USERSTATUS_CHANGED, USER_ERROR, USER_LOADING,ACC
 
 
 const initialState = {
-  statusValidEmail: 'done',
+  statusValidEmail: '1',
   error: null,
   loading: false,
   userEmailCode: '',

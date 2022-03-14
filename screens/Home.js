@@ -215,8 +215,8 @@ export const Home = ({navigation}) => {
                     <MapView
                         style={style.map}
                         initialRegion={{
-                            latitude: -6.200000,
-                            longitude: 106.816666,
+                            latitude: -6.204826731081594,
+                            longitude: 106.84530863311248,
                             latitudeDelta: 0.0922,
                             longitudeDelta: 0.0421
                         }}
