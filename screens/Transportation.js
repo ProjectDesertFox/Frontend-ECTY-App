@@ -14,7 +14,8 @@ export const Transportation = () => {
                     }} mt={1} onValueChange={itemValue => setService(itemValue)}>
                         <Select.Item label="Mobil" value="Mobil" />
                         <Select.Item label="Motor" value="Motor" />
-                        <Select.Item label="Jalan" value="Jalan" />
+                        <Select.Item label="Bus" value="Bus" />
+                        <Select.Item label="Kereta" value="Kereta" />
                     </Select>
                 </FormControl>
                 <Button>Submit</Button>
