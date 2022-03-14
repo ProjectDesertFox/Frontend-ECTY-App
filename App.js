@@ -16,19 +16,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DetailCity } from './screens/DetailCity';
 import { DetailDestination } from './screens/DetailDestination';
-<<<<<<< HEAD
-// import { ItineraryVerifikasi } from './screens/ItineraryVerification';
-// import { Transportation } from './screens/Transportation';
-// import BudgetCalculation from './screens/BudgetCalculation';
-import PremiumUser from './screens/PremiumUser';
-=======
 import { ItineraryVerifikasi } from './screens/ItineraryVerification';
 import { Transportation } from './screens/Transportation';
 import { ItineraryTab } from './tab/ItineraryTab';
 import { HomeTab } from './tab/HomeTab';
 import { getAccessToken } from './store/actions/userActions';
 import { useEffect } from 'react';
->>>>>>> nestedNavigator
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
