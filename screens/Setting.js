@@ -76,7 +76,7 @@ export default function Profile({ navigation }) {
                     </Box>
                     :
                     <Center mt={10}>
-                        <Button mx={5} borderRadius={70} width={130} colorScheme="red" size="sm" variant={"solid"} _text={{
+                        <Button mx={5} borderRadius={70} width={130} colorScheme="blue" size="sm" variant={"solid"} _text={{
                             marginLeft: 4,
                             marginRight: 4,
                             color: "white",
