@@ -32,7 +32,6 @@ export const Itinerary = ({navigation}) => {
     return (
         // <SafeAreaView style={{flex:1}}>
         <>
-           
             <ScrollView>
                 <View >
                     <Button onPress={() => navigation.navigate('ItineraryForm')} style={{marginLeft:15, width:135,marginBottom:15, marginTop:10}}>Create Itenerary</Button>

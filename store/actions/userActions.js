@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function stepOneEmail(UserEmail){
   return (dispatch, previousState) => {
-    // console.log(UserEmail, 'CHECKING STEP ONE')
     dispatch(userLoading(true))
     axios({
       url: 'https://ecty-backend.herokuapp.com/verification/email',
@@ -13,13 +12,13 @@ export function stepOneEmail(UserEmail){
       data: { UserEmail }
     })
     .then(({data}) => {
+      console.log(data, "data stepone")
       data = data.data
-      // console.log(data, 'RESULT STEP ONE')
       dispatch(changeUserStatus(data.statusValidEmail))
       dispatch(changeUserCode(data.UniqueNumberVerificationEmail))
     })
     .catch(err => {
-      console.log(err, 'ERROR STEP ONE')
+      console.log(err)
       dispatch(userError(err))
     })
     .finally(() => {
@@ -30,7 +29,6 @@ export function stepOneEmail(UserEmail){
 
 export function stepTwoVerifyEmail(UserEmail, UniqueNumberVerificationEmail){
   return (dispatch, previousState) => {
-    // console.log('CHECKING STEP TWO')
     dispatch(userLoading(true))
     axios({
       url: 'https://ecty-backend.herokuapp.com/verification/email-verification',
@@ -38,14 +36,11 @@ export function stepTwoVerifyEmail(UserEmail, UniqueNumberVerificationEmail){
       data: {UserEmail, UniqueNumberVerificationEmail}
     })
     .then(({data}) => {
-      // console.log(data.message)
       if(data.message){
         dispatch(changeUserStatus('3'))
       }
-      // console.log(data, 'RESULT STEP TWO')
     })
     .catch(err => {
-      console.log(err, 'ERROR STEP TWO')
       dispatch(userError(err))
     })
     .finally(() => {
@@ -54,9 +49,8 @@ export function stepTwoVerifyEmail(UserEmail, UniqueNumberVerificationEmail){
   }
 }
 
-export function stepThreeRegisterAccount(username, email, password){
+export function stepThreeRegisterAccount(username, email, password, navigation){
   return (dispatch, previousState) => {
-    console.log('REGISTERING')
     dispatch(userLoading(true))
     axios({
       url: 'https://ecty-backend.herokuapp.com/register',
@@ -65,6 +59,7 @@ export function stepThreeRegisterAccount(username, email, password){
     })
     .then(({data}) => {
       dispatch(changeUserStatus('done'))
+      navigation.navigate('Login')
     })
     .catch(err => {
       dispatch(userError(err))
@@ -77,7 +72,6 @@ export function stepThreeRegisterAccount(username, email, password){
 
 export function checkUserVerification(email){
   return (dispatch, previousState) => {
-    // console.log(email, 'CHECKING')
     dispatch(userLoading(true))
     axios({
       url: `https://ecty-backend.herokuapp.com/verification/${email}`,
@@ -85,12 +79,10 @@ export function checkUserVerification(email){
     })
     .then(({data}) => {
       data = data.items
-      // console.log(data.items, 'CHECKING RESULT')
       dispatch(changeUserStatus(data.statusValidEmail))
       dispatch(changeUserCode(data.UniqueNumberVerificationEmail))
     })
     .catch(err => {
-      console.log(err, 'CHECKING ERROR')
       dispatch(userError(err))
     })
     .finally(() => {
@@ -109,7 +101,7 @@ export function loginUser(email, password, navigation){
     })
     .then(({data}) => {
       dispatch(changeAccessToken(true))
-      navigation.navigate('Settings')
+      navigation.navigate('SettingTab')
       return storeAcessToken(data.access_token)
     })
     // .then(() => {
@@ -138,20 +130,13 @@ const storeAcessToken = async (access_token) => {
   }
 }
 export const getAccessToken = () => {
-
-  // try {
-  //   const values = await AsyncStorage.getItem('access_token')
-  //   console.log(values)
-  //   return values
-  // } catch(e) {
-  //   return e
-  // }
   return async (dispatch, previousState) =>{  
     try {
       const values = await AsyncStorage.getItem('access_token')
-      console.log(values)
+      console.log(values, 'ACCESSTOKEN')
       if(values){
         dispatch(changeAccessToken(true))
+        dispatch(getUserData())
       }
     } catch(e) {
       dispatch(userError(e))
@@ -159,6 +144,28 @@ export const getAccessToken = () => {
   }
 }
 
+export function getUserData(access_token){
+  return (dispatch, previousState) => {
+    dispatch(userLoading(true))
+    axios({
+      url: 'https://ecty-backend.herokuapp.com/verification/email',
+      method: 'POST',
+      data: { UserEmail }
+    })
+    .then(({data}) => {
+      data = data.data
+      dispatch(changeUserStatus(data.statusValidEmail))
+      dispatch(changeUserCode(data.UniqueNumberVerificationEmail))
+    })
+    .catch(err => {
+      console.log(err, 'ERROR STEP ONE')
+      dispatch(userError(err))
+    })
+    .finally(() => {
+      dispatch(userLoading(false))
+    })
+  }
+}
 
 export function changeAccessToken (access_token){
   console.log('msuk change')
