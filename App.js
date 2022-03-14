@@ -16,8 +16,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DetailCity } from './screens/DetailCity';
 import { DetailDestination } from './screens/DetailDestination';
-import { ItineraryVerifikasi } from './screens/ItineraryVerification';
-import { Transportation } from './screens/Transportation';
+// import { ItineraryVerifikasi } from './screens/ItineraryVerification';
+// import { Transportation } from './screens/Transportation';
+// import BudgetCalculation from './screens/BudgetCalculation';
+import PremiumUser from './screens/PremiumUser';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -33,9 +35,10 @@ export default function App() {
             <Stack.Screen name="DetailCity" component={DetailCity} />
           </Stack.Navigator> */}
           <Tab.Navigator tabBarOptions={{ activeTintColor: '#00CEC9' }}>
-            <Tab.Screen name="DetailCity" component={DetailCity} />
-            <Tab.Screen name="Transportation" component={Transportation} />
-            <Tab.Screen name="ItineraryVerifikasi" component={ItineraryVerifikasi} />
+            <Tab.Screen name="Premium" component={PremiumUser} />
+            {/* <Tab.Screen name="DetailCity" component={DetailCity} /> */}
+            {/* <Tab.Screen name="Transportation" component={Transportation} />
+            <Tab.Screen name="ItineraryVerifikasi" component={ItineraryVerifikasi} /> */}
             <Tab.Screen name="Destination" component={DetailDestination} options={{
               headerShown: true,
               tabBarIcon: (props) => (
@@ -67,7 +70,7 @@ export default function App() {
                 <Icon type='feather' name='settings' color={props.color} />
               ),
             }} />
-            {/* <Tab.Screen name="Register" component={Register} options={{
+            <Tab.Screen name="Register" component={Register} options={{
               headerShown: false,
               title: 'Register',
               tabBarIcon: (props) => (
@@ -80,7 +83,7 @@ export default function App() {
               tabBarIcon: (props) => (
                 <Icon type='feather' name='log-in' color={props.color} />
               ),
-            }} /> */}
+            }} />
 
           </Tab.Navigator>
         </NavigationContainer>
