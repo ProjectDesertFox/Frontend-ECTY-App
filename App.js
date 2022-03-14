@@ -55,7 +55,7 @@ export default function App() {
                     title:'Itinerary'
                   }} />
                   
-                  <Tab.Screen name="Friends" component={Friends} options={{
+                  <Tab.Screen name="Friends" component={Register} options={{
                     headerShown: true,
                     tabBarIcon: (props) => (
                       <Icon type='feather' name='user' color={props.color} />
@@ -76,7 +76,6 @@ export default function App() {
 
             </Tab.Navigator>
           </NavigationContainer>
-
         </NativeBaseProvider>
       </Provider>
   )

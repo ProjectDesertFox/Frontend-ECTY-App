@@ -15,8 +15,6 @@ import rates from "../data/bestRate"
 import { Button, ScrollView } from "native-base";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
-
 export const Itinerary = ({navigation}) => {
 
     const BestRate = ({rate})=>{
@@ -30,7 +28,6 @@ export const Itinerary = ({navigation}) => {
         )
     }
     return (
-        // <SafeAreaView style={{flex:1}}>
         <>
            
             <ScrollView>
@@ -43,9 +40,7 @@ export const Itinerary = ({navigation}) => {
                         />
                 </View>
             </ScrollView>
-        
         </>
-        // </SafeAreaView>
     )
 }
 
