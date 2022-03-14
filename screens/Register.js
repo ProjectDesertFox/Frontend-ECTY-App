@@ -27,7 +27,7 @@ export const Register = ({navigation}) => {
     }
 
     function stepThree(){ //registering account
-        dispatch(stepThreeRegisterAccount(username, email, password))
+        dispatch(stepThreeRegisterAccount(username, email, password, navigation))
     }
 
     return (
@@ -77,7 +77,7 @@ export const Register = ({navigation}) => {
                         <FormControl.Label>Password</FormControl.Label>
                         <Input type="password" value={password} onChangeText={setPassword} />
                     </FormControl>
-                    <Button onPress={() => stepThree()} mt="2" colorScheme="indigo">
+                    <Button onPress={() => stepThree(navigation)} mt="2" colorScheme="indigo">
                         Sign up
                     </Button>
                 </VStack>
