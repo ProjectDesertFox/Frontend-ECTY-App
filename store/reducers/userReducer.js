@@ -1,11 +1,12 @@
-import { USEREMAILCODE_CHANGED, USERSTATUS_CHANGED, USER_ERROR, USER_LOADING } from '../actionKeys'
+import { USEREMAILCODE_CHANGED, USERSTATUS_CHANGED, USER_ERROR, USER_LOADING,ACCESSTOKEN_CHANGED } from '../actionKeys'
 
 
 const initialState = {
   statusValidEmail: 'done',
   error: null,
   loading: false,
-  userEmailCode: ''
+  userEmailCode: '',
+  access_token:false
 }
 
 export default function userReducer (state = initialState, action){
@@ -18,6 +19,8 @@ export default function userReducer (state = initialState, action){
       return { ...state, error: action.error}
     case USER_LOADING:
       return { ...state, loading: action.loading}
+    case ACCESSTOKEN_CHANGED:
+      return { ...state, access_token: action.access_token}
     default:
       return state
   }

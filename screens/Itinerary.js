@@ -13,7 +13,12 @@ import {
 const {width} = Dimensions.get('screen');
 import rates from "../data/bestRate"
 import { Button, ScrollView } from "native-base";
-export const Itinerary = () => {
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
+
+export const Itinerary = ({navigation}) => {
+
     const BestRate = ({rate})=>{
         return (
             <View style={{flexDirection:'row',padding:10,marginBottom:10,width:'100%',backgroundColor:'rgba(255,255,255,0.8)',borderRadius:10,shadowColor:'black',shadowOffset:{width:0,height:10},shadowOpacity:0.3,shadowRadius:20}}>
@@ -26,9 +31,11 @@ export const Itinerary = () => {
     }
     return (
         // <SafeAreaView style={{flex:1}}>
+        <>
+           
             <ScrollView>
                 <View >
-                    <Button style={{marginLeft:15, width:135,marginBottom:15, marginTop:10}}>Create Itenerary</Button>
+                    <Button onPress={() => navigation.navigate('ItineraryForm')} style={{marginLeft:15, width:135,marginBottom:15, marginTop:10}}>Create Itenerary</Button>
                     <FlatList nestedScrollEnabled
                         contentContainerStyle={{paddingLeft:15,paddingRight:20}}
                         data={rates}
@@ -36,6 +43,8 @@ export const Itinerary = () => {
                         />
                 </View>
             </ScrollView>
+        
+        </>
         // </SafeAreaView>
     )
 }

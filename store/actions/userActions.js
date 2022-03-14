@@ -1,4 +1,4 @@
-import { USERSTATUS_CHANGED, USEREMAILCODE_CHANGED, USER_LOADING, USER_ERROR } from "../actionKeys";
+import { USERSTATUS_CHANGED, USEREMAILCODE_CHANGED, USER_LOADING, USER_ERROR, ACCESSTOKEN_CHANGED } from "../actionKeys";
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // https://ecty-backend.herokuapp.com/
@@ -99,7 +99,7 @@ export function checkUserVerification(email){
   }
 }
 
-export function loginUser(email, password){
+export function loginUser(email, password, navigation){
   return (dispatch, previousState) => {
     dispatch(userLoading(true))
     axios({
@@ -108,13 +108,18 @@ export function loginUser(email, password){
       data: {email: email, password: password}
     })
     .then(({data}) => {
+      dispatch(changeAccessToken(true))
+      navigation.navigate('Settings')
       return storeAcessToken(data.access_token)
     })
-    .then(() => {
-      return getAccessToken()
-    })
-    .then((response) => {
-    })
+    // .then(() => {
+    //   console.log('berhasil')
+
+    //   return getAccessToken()
+    // })
+    // .then(({response}) => {
+    //   // console.log("=========")
+    // })
     .catch(err => {
       dispatch(userError(err))
     })
@@ -132,14 +137,32 @@ const storeAcessToken = async (access_token) => {
     return e
   }
 }
+export const getAccessToken = () => {
 
-export const getAccessToken = async () => {
-  try {
-    const values = await AsyncStorage.getItem('access_token')
-    return values
-  } catch(e) {
-    return e
+  // try {
+  //   const values = await AsyncStorage.getItem('access_token')
+  //   console.log(values)
+  //   return values
+  // } catch(e) {
+  //   return e
+  // }
+  return async (dispatch, previousState) =>{  
+    try {
+      const values = await AsyncStorage.getItem('access_token')
+      console.log(values)
+      if(values){
+        dispatch(changeAccessToken(true))
+      }
+    } catch(e) {
+      dispatch(userError(e))
+    }
   }
+}
+
+
+export function changeAccessToken (access_token){
+  console.log('msuk change')
+  return {type: ACCESSTOKEN_CHANGED, access_token}
 }
 
 export function changeUserStatus(status){
@@ -157,3 +180,19 @@ export function userError (err){
 export function userLoading (status){
   return { type: USER_LOADING, loading: status}
 }
+
+export const removeAccesstoken = () => {
+  // console.log('masuk remover')
+  return async (dispatch, previousState) =>{
+      try {      
+        console.log("masuk try")
+        await AsyncStorage.removeItem('access_token');
+        dispatch(changeAccessToken(false))
+      } catch(e) {
+        console.log(e, "eror remover")
+        dispatch(userError(e))
+        // return {}
+      }
+  }
+}
+

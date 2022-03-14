@@ -9,7 +9,8 @@ export  const Login = ({navigation}) => {
     const [password, setPassword] = useState('')
     
     async function login(){
-        dispatch(loginUser(email, password))
+        dispatch(loginUser(email, password, navigation))
+        
     }
 
     return <Center w="100%">
@@ -33,9 +34,9 @@ export  const Login = ({navigation}) => {
                     <Text fontSize="sm" color="coolGray.600" _dark={{
                         color: "warmGray.200"
                     }}>
-                        Don't have an account yet? . {" "}
+                        Don't have an account yet?{" "}
                     </Text>
-                <Text onPress={() => navigation.navigate('Settings')}>Sign up</Text>
+                <Text style={{color:'red'}} onPress={() => navigation.navigate('Register')}>Sign up</Text>
                 </HStack>
             </VStack>
         </Box>
