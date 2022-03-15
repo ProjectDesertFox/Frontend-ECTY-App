@@ -5637,19 +5637,12 @@
   "resolved" "https://registry.npmjs.org/react-native-communications/-/react-native-communications-2.2.1.tgz"
   "version" "2.2.1"
 
-<<<<<<< HEAD
-"react-native-date-picker@^4.2.0":
-  "integrity" "sha512-IfbK7Eh5By8rdjiu/pvqLF8NkFX9pVsY7Vn6+MkLSiFcLIGFd7NaENRJKl75/xNZuY5CkIiRVksS9abEl/II8g=="
-  "resolved" "https://registry.npmjs.org/react-native-date-picker/-/react-native-date-picker-4.2.0.tgz"
-  "version" "4.2.0"
-=======
 "react-native-document-picker@^8.0.0":
   "integrity" "sha512-4O1FNOJHzfZ7BBFOJhNoeCKHSjthFtZyMEWJsAxX1ORdShGSa6miLvTHtQjpCDMNWSoPU1C7fXLNNPrv8GAarQ=="
   "resolved" "https://registry.npmjs.org/react-native-document-picker/-/react-native-document-picker-8.0.0.tgz"
   "version" "8.0.0"
   dependencies:
     "invariant" "^2.2.4"
->>>>>>> thalialeticia
 
 "react-native-elements@^3.4.2":
   "integrity" "sha512-m0eAWOn7JuR1wNTNY0WHuaqst4LI/gFE4N5Bbyfsc4DiryWsMST7aAg5w/Gos4IexWIzhLKCIkPxthND1m/8Xg=="

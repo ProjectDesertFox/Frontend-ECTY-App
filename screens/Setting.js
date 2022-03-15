@@ -8,7 +8,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function Profile({ navigation }) {
-    const [userData, setUserData] = useState([])
+    //const [userData, setUserData] = useState([])
     let access_token = useSelector(state => state.user.access_token)
     let userData = useSelector(state => state.user.userData)
     let dispatch = useDispatch()
@@ -58,11 +58,6 @@ export default function Profile({ navigation }) {
                         </Box>
                         <Divider my="2" mx="5" bg="#DFE6E9" thickness="2" />
                         <Box Flex flexDirection='row' justifyContent='space-between' px={5} mt={5}>
-                            <Text fonstSize='lg' color='#34495E'>Email</Text>
-                            <Text fonstSize='lg' color='#34495E'>{userData.email}</Text>
-                        </Box>
-                        <Divider my="2" mx="5" bg="#DFE6E9" thickness="2" />
-                        <Box Flex flexDirection='row' justifyContent='space-between' px={5} mt={5}>
                             <Text fonstSize='lg' color='#34495E'>EctyId</Text>
                             <Text fonstSize='lg' color='#34495E'>{userData.EctyId}</Text>
                         </Box>
@@ -74,7 +69,7 @@ export default function Profile({ navigation }) {
                         <Divider my="2" mx="5" bg="#DFE6E9" thickness="2" />
                         <Box Flex flexDirection='row' justifyContent='space-between' px={5} mt={5}>
                             <Text fonstSize='lg'>KTP</Text>
-                            {userData.UserVerification.validKTP ?
+                            {!userData.UserVerification.validKTP ?
                             <Button colorScheme="yellow" size="sm" variant={"solid"} _text={{
                                 color: "white",
                                 fontWeight: "bold"
@@ -88,7 +83,7 @@ export default function Profile({ navigation }) {
                             }
                         </Box>
                         <Divider my="2" mx="5" bg="#DFE6E9" thickness="2" />
-                        <Box Flex flexDirection='row' justifyContent='center' px={1} mt={20}>
+                        <Box Flex flexDirection='row' justifyContent='center' px={1} mt={5}>
                             <Button mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
                                 marginLeft: 4,
                                 marginRight: 4,
