@@ -6,7 +6,7 @@ import { Login } from './screens/Login';
 import { Register } from './screens/Register';
 import { Home } from './screens/Home';
 import { Itinerary } from './screens/Itinerary';
-import { Friends } from './screens/Friends';
+// import { Friends } from './screens/FriendsLists';
 import Setting from './screens/Setting';
 import store from './store';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -23,6 +23,7 @@ import { HomeTab } from './tab/HomeTab';
 import { getAccessToken } from './store/actions/userActions';
 import { useEffect } from 'react';
 import { SettingTab } from './tab/SettingTab';
+import { FriendTab } from './tab/FriendTab';
 import { Destination } from './screens/Destination';
 
 const Stack = createNativeStackNavigator()
@@ -57,8 +58,8 @@ export default function App() {
               title: 'Itinerary'
             }} />
 
-            <Tab.Screen name="Friends" component={Friends} options={{
-              headerShown: true,
+            <Tab.Screen name="Friends" component={FriendTab} options={{
+              headerShown: false,
               tabBarIcon: (props) => (
                 <Icon type='feather' name='user' color={props.color} />
               )
