@@ -12,7 +12,7 @@ export function actionGetItinerary(itineraries){
             method: "GET"
         })
         .then(({data}) =>{
-            console.log(data)
+            // console.log(data)
             // console.log(loading, "ini loading")
             // dispatch(actionFetchNews(data))
             dispatch({
