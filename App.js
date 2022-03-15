@@ -75,7 +75,7 @@ export default function App() {
                   <Icon type='feather' name='settings' color={props.color} />
                 )
               }} />
-              <Tab.Screen name="Destination" component={Destination} options={{
+              {/* <Tab.Screen name="Destination" component={Destination} options={{
                 headerShown: true,
                 title: 'Destination',
                 tabBarIcon: (props) => (
@@ -88,7 +88,7 @@ export default function App() {
                 tabBarIcon: (props) => (
                   <Icon type='feather' name='settings' color={props.color} />
                 )
-              }} />
+              }} /> */}
 
           </Tab.Navigator>
         </NavigationContainer>

@@ -101,7 +101,7 @@ export function loginUser(email, password, navigation){
     })
     .then(({data}) => {
       dispatch(changeAccessToken(true))
-      navigation.navigate('SettingTab')
+      navigation.navigate('Profile')
       return storeAcessToken(data.access_token)
     })
     // .then(() => {
