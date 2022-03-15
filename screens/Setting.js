@@ -79,15 +79,15 @@ export default function Profile({ navigation }) {
                             <Text fonstSize='lg'>vfv</Text>
                         </Box>
                         <Divider my="2" mx="5" bg="#DFE6E9" thickness="2" /> */}
-                        <Box Flex flexDirection='row' justifyContent='flex-end' px={1} mt={100}>
-                            {/* <Button mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
+                        <Box Flex flexDirection='row' justifyContent='space-between' px={1} mt={100}>
+                            <Button mx={5} borderRadius={70} colorScheme="blue" size="sm" variant={"solid"} _text={{
                                 marginLeft: 4,
                                 marginRight: 4,
                                 color: "white",
                                 fontWeight: "bold"
-                            }} px="3" onPress={() => navigation.navigate('Login')}>
-                                LOGIN
-                            </Button> */}
+                            }} px="3" onPress={() => navigation.navigate('PremiumUser')}>
+                                Premium User
+                            </Button>
                             <Button mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
                                 marginLeft: 4,
                                 marginRight: 4,
@@ -101,7 +101,8 @@ export default function Profile({ navigation }) {
                         </Box>
                     </Box>
                     :
-                    <Center mt={10}>
+                    <Center mt={10} flexDirection='row' justifyContent='space-around'>
+                        
                         <Button mx={5} borderRadius={70} width={130} colorScheme="blue" size="sm" variant={"solid"} _text={{
                             marginLeft: 4,
                             marginRight: 4,
