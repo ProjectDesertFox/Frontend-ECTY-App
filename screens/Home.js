@@ -25,7 +25,7 @@ import MapView, { Callout, Circle, Marker } from "react-native-maps"
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../style/colors';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionGetItinerary } from '../store/actions/itineraryAction';
+import { actionGetItinerary, actionJoinItinerary } from '../store/actions/itineraryAction';
 // import { NavigationContainer } from '@react-navigation/native';
 const {width} = Dimensions.get('screen');
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -40,6 +40,10 @@ export const Home = ({navigation}) => {
     useEffect(()=>{
         dispatch(actionGetItinerary())
     },[])
+
+    function joinItinerary(id){
+        dispatch(actionJoinItinerary(id))
+    }
     const ItenerariesCard=({itineraries}) =>{
 
         const [showModal, setShowModal] = useState(false);
@@ -51,9 +55,9 @@ export const Home = ({navigation}) => {
                 activeOpacity={0.8}
                 onPress={() => setShowModal(true)}
                 >
-                {/* <Image style={style.imageItenerary} source={{uri: itenerary.destination}} /> */}
+                <Image style={style.imageItenerary} source={{uri: itineraries.imageItinerary}} />
                 <Text style={{marginRight:20}}>
-                    {itineraries.UserId}'s Itenerary
+                    {itineraries.User.username}'s Itenerary
                 </Text>
                 </TouchableOpacity>
                 <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
@@ -69,16 +73,18 @@ export const Home = ({navigation}) => {
                             <FormControl.Label>Email</FormControl.Label>
                             <Input />
                             </FormControl> */}
-                            {/* <Image style={{height:150, width:'100%'}} source={{uri:itineraries.destination}}/> */}
-                            <Text>Destination: {itineraries.destination}</Text>
-                            <Text>Transportation: {itineraries.transportation}</Text>
-                            <Text>Date Start: {itineraries.dateStart}</Text>
-                            <Text>Budget: {itineraries.budget}</Text>
+                            <Image style={{height:150, width:'100%'}} source={{uri:itineraries.imageItinerary}}/>
+                            
+                            <Text>Destination: {itineraries.ItineraryPlaces.name}</Text>
+                            <Text>Destination: {itineraries.ItineraryPlaces.estimatedPrice}</Text>
+                            <Text>Transportation: {itineraries.ItineraryTransportations.transportationType}</Text>
+                            <Text>Date Start: {itineraries.ItineraryTransportations.from}</Text>
+                            <Text>Estimated Transportation Price: {itineraries.ItineraryTransportations.estimatedPrice}</Text>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button.Group space={2}>
                             <Button onPress={() => {
-                            setShowModal(false);
+                                joinItinerary(itineraries.User.EctyId)
                             }}>
                                 Join
                             </Button>
