@@ -182,7 +182,16 @@ export function stepOneKtp(result, setPage){
         'Content-Type': 'multipart/form-data'
       }
     })
-    .then(({data}) => {
+    .then(async response => {
+      const resjson = await response.json()
+      console.log(resjson,'response++++++++++');
+      if (response.ok) {
+        return resjson
+      } else {
+        throw resjson
+      }
+    })
+    .then(data => {
       console.log(data, 'HASILNYA WOE')
       setPage('Profile')
     })
