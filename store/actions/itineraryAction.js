@@ -15,7 +15,7 @@ export function actionGetItinerary(itineraries){
             }
         })
         .then(({data}) =>{
-            console.log(data)
+            // console.log(data)
             // console.log(loading, "ini loading")
             // dispatch(actionFetchNews(data))
             dispatch({

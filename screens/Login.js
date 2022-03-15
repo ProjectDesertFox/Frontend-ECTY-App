@@ -10,7 +10,6 @@ export  const Login = ({navigation}) => {
     
     async function login(){
         dispatch(loginUser(email, password, navigation))
-        
     }
 
     return <Center w="100%">

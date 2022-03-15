@@ -1,4 +1,4 @@
-import { USEREMAILCODE_CHANGED, USERSTATUS_CHANGED, USER_ERROR, USER_LOADING,ACCESSTOKEN_CHANGED, USERDATA_CHANGED } from '../actionKeys'
+import { USEREMAILCODE_CHANGED, USERSTATUS_CHANGED, USER_ERROR, USER_LOADING,ACCESSTOKEN_CHANGED, USERDATA_CHANGED, STATUSVALIDKTP_CHANGED } from '../actionKeys'
 
 
 const initialState = {
@@ -7,7 +7,8 @@ const initialState = {
   loading: false,
   userEmailCode: '',
   access_token:false,
-  userData: null
+  userData: null,
+  statusValidKTP: ''
 }
 
 export default function userReducer (state = initialState, action){
@@ -24,6 +25,8 @@ export default function userReducer (state = initialState, action){
       return { ...state, access_token: action.access_token}
     case USERDATA_CHANGED:
       return { ...state, userData: action.userData}
+    case STATUSVALIDKTP_CHANGED:
+      return { ...state, statusValidKTP: action.statusValidKTP}
     default:
       return state
   }

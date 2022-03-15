@@ -1,13 +1,15 @@
-import { USERSTATUS_CHANGED, USEREMAILCODE_CHANGED, USER_LOADING, USER_ERROR, ACCESSTOKEN_CHANGED } from "../actionKeys";
+import { USERSTATUS_CHANGED, USEREMAILCODE_CHANGED, USER_LOADING, USER_ERROR, ACCESSTOKEN_CHANGED, USERDATA_CHANGED } from "../actionKeys";
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // https://ecty-backend.herokuapp.com/
+
+let baseUrl = 'http://192.168.1.20:3000'
 
 export function stepOneEmail(UserEmail){
   return (dispatch, previousState) => {
     dispatch(userLoading(true))
     axios({
-      url: 'https://ecty-backend.herokuapp.com/verification/email',
+      url: `https://ecty-backend.herokuapp.com/verification/email`,
       method: 'POST',
       data: { UserEmail }
     })
@@ -98,20 +100,15 @@ export function loginUser(email, password, navigation){
       url: `https://ecty-backend.herokuapp.com/login`,
       method: 'POST',
       data: {email: email, password: password}
-    })
+    }) 
     .then(({data}) => {
       dispatch(changeAccessToken(true))
-      navigation.navigate('SettingTab')
+      navigation.navigate('Profile')
       return storeAcessToken(data.access_token)
     })
-    // .then(() => {
-    //   console.log('berhasil')
-
-    //   return getAccessToken()
-    // })
-    // .then(({response}) => {
-    //   // console.log("=========")
-    // })
+    .then((data) => {
+      return dispatch(getUserData(data))
+    })
     .catch(err => {
       dispatch(userError(err))
     })
@@ -124,19 +121,18 @@ export function loginUser(email, password, navigation){
 const storeAcessToken = async (access_token) => {
   try {
     await AsyncStorage.setItem('access_token', access_token)
+    return access_token
   } catch (e) {
-    console.log(e, 'FAIL STORING DATA')
     return e
   }
 }
+
 export const getAccessToken = () => {
   return async (dispatch, previousState) =>{  
     try {
       const values = await AsyncStorage.getItem('access_token')
-      console.log(values, 'ACCESSTOKEN')
       if(values){
         dispatch(changeAccessToken(true))
-        dispatch(getUserData())
       }
     } catch(e) {
       dispatch(userError(e))
@@ -148,17 +144,15 @@ export function getUserData(access_token){
   return (dispatch, previousState) => {
     dispatch(userLoading(true))
     axios({
-      url: 'https://ecty-backend.herokuapp.com/verification/email',
-      method: 'POST',
-      data: { UserEmail }
+      url: 'https://ecty-backend.herokuapp.com/users/userCurrent',
+      method: 'GET',
+      headers: {access_token}
     })
     .then(({data}) => {
-      data = data.data
-      dispatch(changeUserStatus(data.statusValidEmail))
-      dispatch(changeUserCode(data.UniqueNumberVerificationEmail))
+      console.log(data, 'SINI DATANYA')
+      dispatch(changeUserData(data))
     })
     .catch(err => {
-      console.log(err, 'ERROR STEP ONE')
       dispatch(userError(err))
     })
     .finally(() => {
@@ -167,8 +161,46 @@ export function getUserData(access_token){
   }
 }
 
+export function stepOneKtp(result, setPage){
+  return async (dispatch, previousState) => {
+    console.log('masuk1')
+    let formData = new FormData()
+    let localUri = result.uri
+    let filename = localUri.split('/').pop()
+    let match = /\.(\w+)$/.exec(filename)
+    let type = match ? `image/${match[1]}` : `image`
+    // console.log({ uri: localUri, name: filename, type }, '==')
+    formData.append('ktp', { uri: localUri, name: filename, type })
+    let access_token = await AsyncStorage.getItem('access_token')
+    // let access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0aGFsaWEiLCJpYXQiOjE2NDczMzU4NDZ9.1hNddLHqdabpBfgpnLBTUPTtBcQYFqaNO_Zpy22kC4c'
+    dispatch(userLoading(true))
+    fetch('https://ecty-backend.herokuapp.com/verification/ktp',{
+      method: 'PATCH',
+      body: formData,
+      headers: {
+        access_token,
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then(({data}) => {
+      console.log(data, 'HASILNYA WOE')
+      setPage('Profile')
+    })
+    .catch(err => {
+      console.log(err, 'ERRORRRRRRRR')
+      dispatch(userError(err))
+    })
+    .finally(() => {
+      dispatch(userLoading(false))
+    })
+  }
+}
+
+export function changeUserData (data) {
+  return {type: USERDATA_CHANGED, userData: data}
+}
+
 export function changeAccessToken (access_token){
-  console.log('msuk change')
   return {type: ACCESSTOKEN_CHANGED, access_token}
 }
 
@@ -189,16 +221,12 @@ export function userLoading (status){
 }
 
 export const removeAccesstoken = () => {
-  // console.log('masuk remover')
   return async (dispatch, previousState) =>{
       try {      
-        console.log("masuk try")
         await AsyncStorage.removeItem('access_token');
         dispatch(changeAccessToken(false))
       } catch(e) {
-        console.log(e, "eror remover")
         dispatch(userError(e))
-        // return {}
       }
   }
 }
