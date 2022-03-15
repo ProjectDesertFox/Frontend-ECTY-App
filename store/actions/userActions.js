@@ -133,10 +133,10 @@ export const getAccessToken = () => {
   return async (dispatch, previousState) =>{  
     try {
       const values = await AsyncStorage.getItem('access_token')
-      console.log(values, 'ACCESSTOKEN')
       if(values){
         dispatch(changeAccessToken(true))
         dispatch(getUserData())
+        return values
       }
     } catch(e) {
       dispatch(userError(e))
