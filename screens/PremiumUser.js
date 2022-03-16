@@ -1,7 +1,5 @@
 import { Text, Box, Button, Center, AspectRatio, Image, ScrollView, VStack, Heading, Stack, Divider } from 'native-base'
 import React, { useEffect } from 'react'
-import { useWindowDimensions } from 'react-native';
-import RenderHtml from 'react-native-render-html';
 
 export const PremiumUser = () => {
 

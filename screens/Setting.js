@@ -126,7 +126,6 @@ export default function Profile({ navigation }) {
                         </>
                         :
                         <Center mt={10} flexDirection='row' justifyContent='space-around'>
-
                             <Button mx={5} borderRadius={70} width={130} colorScheme="blue" size="sm" variant={"solid"} _text={{
                                 marginLeft: 4,
                                 marginRight: 4,
