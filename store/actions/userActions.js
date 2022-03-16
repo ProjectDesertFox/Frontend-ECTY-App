@@ -1,4 +1,4 @@
-import { USERSTATUS_CHANGED, USEREMAILCODE_CHANGED, USER_LOADING, USER_ERROR, ACCESSTOKEN_CHANGED, USERDATA_CHANGED } from "../actionKeys";
+import { USERSTATUS_CHANGED, USEREMAILCODE_CHANGED, USER_LOADING, USER_ERROR, ACCESSTOKEN_CHANGED, USERDATA_CHANGED, USERFRIENDLIST_CHANGED } from "../actionKeys";
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // https://ecty-backend.herokuapp.com/
@@ -102,7 +102,8 @@ export function loginUser(email, password, navigation){
       data: {email: email, password: password}
     }) 
     .then(({data}) => {
-      dispatch(changeAccessToken(true))
+      dispatch(changeAccessToken(data.access_token))
+      console.log(navigation)
       navigation.navigate('Profile')
       return storeAcessToken(data.access_token)
     })
@@ -132,7 +133,7 @@ export const getAccessToken = () => {
     try {
       const values = await AsyncStorage.getItem('access_token')
       if(values){
-        dispatch(changeAccessToken(true))
+        dispatch(changeAccessToken(values))
       }
     } catch(e) {
       dispatch(userError(e))
@@ -149,8 +150,29 @@ export function getUserData(access_token){
       headers: {access_token}
     })
     .then(({data}) => {
-      console.log(data, 'SINI DATANYA')
+      console.log(data, 'SINI DATANYAAAA')
       dispatch(changeUserData(data))
+    })
+    .catch(err => {
+      dispatch(userError(err))
+    })
+    .finally(() => {
+      dispatch(userLoading(false))
+    })
+  }
+}
+
+export function getUserFriendList(access_token){
+  return (dispatch, previousState) => {
+    dispatch(userLoading(true))
+    axios({
+      url: 'https://ecty-backend.herokuapp.com/friendList/',
+      method: 'GET',
+      headers: {access_token}
+    })
+    .then(({data}) => {
+      console.log(data, 'SINI DATA FRIENDLISTNYA')
+      dispatch(changeUserFriendList(data))
     })
     .catch(err => {
       dispatch(userError(err))
@@ -240,3 +262,6 @@ export const removeAccesstoken = () => {
   }
 }
 
+export function changeUserFriendList (data) {
+  return {type: USERFRIENDLIST_CHANGED, userFriendList: data}
+}

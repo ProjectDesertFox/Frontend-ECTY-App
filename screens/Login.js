@@ -8,6 +8,9 @@ export  const Login = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     
+    useEffect(() => {
+        dispatch(getAccessToken())
+    }, [])
     async function login(){
         dispatch(loginUser(email, password, navigation))
     }
