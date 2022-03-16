@@ -26,6 +26,9 @@ import { SettingTab } from './tab/SettingTab';
 import { FriendTab } from './tab/FriendTab';
 import { Destination } from './screens/DestinationForm';
 import {BudgetCalculation} from './screens/BudgetCalculation'
+import { FriendsLists } from './screens/FriendsLists';
+import { CekStatusPremiumUser } from './screens/CekStatusPremiumUser';
+import { GroupChat } from './screens/GroupChat';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -41,6 +44,13 @@ export default function App() {
       <NativeBaseProvider>
         <NavigationContainer>
           <Tab.Navigator tabBarOptions={{ activeTintColor: '#00CEC9' }}>
+            <Tab.Screen name="Cek" component={GroupChat} options={{
+              headerShown: true,
+              tabBarIcon: (props) => (
+                <Icon type='feather' name='home' color={props.color} />
+              ),
+              title: 'Home'
+            }} />
             <Tab.Screen name="HomeTab" component={HomeTab} options={{
               headerShown: false,
               tabBarIcon: (props) => (
@@ -59,8 +69,8 @@ export default function App() {
               title: 'Itinerary'
             }} />
 
-            <Tab.Screen name="Friends" component={FriendTab} options={{
-              headerShown: false,
+            <Tab.Screen name="Friends" component={FriendsLists} options={{
+              headerShown: true,
               tabBarIcon: (props) => (
                 <Icon type='feather' name='user' color={props.color} />
               )

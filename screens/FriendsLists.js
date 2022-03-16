@@ -31,9 +31,6 @@ export const FriendsLists = ({navigation}) => {
     }
     return (
         <>
-        {
-            access_token ? 
-            <>
             {
                 page === 'FriendList' ?
                 <>
@@ -151,19 +148,6 @@ export const FriendsLists = ({navigation}) => {
                 :
                 null
             }
-            </>
-            :
-            <Button mt={300} mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
-                marginLeft: 4,
-                marginRight: 4,
-                color: "white",
-                fontWeight: "bold",
-            }} px="3"
-            onPress={() => navigation.navigate('Login')}
-            >
-                Please Login First
-            </Button>
-        }
         </>
     )
 }

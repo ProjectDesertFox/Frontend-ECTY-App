@@ -1,55 +1,58 @@
 import { Text, Box, Button, Center, AspectRatio, Image, ScrollView, VStack, Heading, Stack, Divider } from 'native-base'
 import React, { useEffect } from 'react'
+import axios from 'axios'
+import { Linking } from 'react-native'
 
-export const PremiumUser = () => {
+export const PremiumUser = ({ navigation }) => {
 
-    // window.snap.pay(snapToken, options)
-    // let snap = new midtransClient.Snap({
-    //     isProduction: false,
-    //     serverKey: 'SB-Mid-server-ZMl3Dkx2hHikXKlVEGUtPQBI',
-    //     clientKey: 'SB-Mid-client-yoFuSTXX_dIFM7mu'
-    // });
+    let random = new Date().getTime()
+    console.log("🚀 ~ file: PremiumUser.js ~ line 9 ~ PremiumUser ~ random", random)
 
-    // let parameter = {
-    //     "transaction_details": {
-    //         "order_id": "2",
-    //         "gross_amount": 100000
-    //     }, "bank": {
-    //         "secure": true
-    //     }
-    // };
-    // <script src="https://app.sandbox.midtrans.com/snap/snap.js"></script>
+    var requestOptions2 = {
+        method: 'POST',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": "Basic U0ItTWlkLXNlcnZlci1aTWwzRGt4MmhIaWtYS2xWRUdVdFBRQkk6"
+        },
+        redirect: 'follow'
+    };
 
-    // useEffect(() => {
-    //     const snapSrcUrl = 'https://app.sandbox.midtrans.com/snap/snap.js';
-    //     const myMidtransClientKey = 'SB-Mid-client-yoFuSTXX_dIFM7mu'; //change this according to your client-key
-
-    //     const script = React.createElement('script');
-    //     script.src = snapSrcUrl;
-    //     script.setAttribute('data-client-key', myMidtransClientKey);
-    //     script.async = true;
-
-    //     React.body.appendChild(script);
-
-    //     return () => {
-    //         React.body.removeChild(script);
-    //     }
-    // }, []);
+    let requestOptions = {
+        "transaction_details": {
+            "order_id": `${random}`,
+            "gross_amount": 10000
+        },
+        "credit_card": {
+            "secure": true
+        }
+    }
 
     function payment() {
-        console.log('proses payment')
-        window.snap.pay('c9db8883-7eb2-49b3-b735-788175e4d15b', {
-            onSuccess: function (result) {
-                console.log(result);
-            },
-            onPending: function (result) {
-                console.log(result);
-            },
-            onError: function (result) {
-                console.log(result);
+        // console.log('payment processss<<<<<<<')
+        axios.post("https://app.sandbox.midtrans.com/snap/v1/transactions", requestOptions, requestOptions2)
+            .then(response => Linking.openURL(response.data.redirect_url))
+            .catch(error => console.log('error', error))
+            .finally(() => navigation.navigate('CekStatusPremiumUser', {
+                random: random
             }
-        })
+            ));
     }
+
+    // function payment() {
+    //     console.log('proses payment')
+    //     window.snap.pay('c9db8883-7eb2-49b3-b735-788175e4d15b', {
+    //         onSuccess: function (result) {
+    //             console.log(result);
+    //         },
+    //         onPending: function (result) {
+    //             console.log(result);
+    //         },
+    //         onError: function (result) {
+    //             console.log(result);
+    //         }
+    //     })
+    // }
 
     return (
         <>
@@ -92,6 +95,20 @@ export const PremiumUser = () => {
                                 onPress={() => payment()}>
                                 Pay
                             </Button>
+
+                            {/* <Button mx={5} borderRadius={70} width={130} colorScheme="red" size="sm" variant={"solid"} _text={{
+                                marginLeft: 4,
+                                marginRight: 4,
+                                color: "white",
+                                fontWeight: "bold"
+                            }} px="3"
+                                onPress={() => navigation.navigate('CekStatusPremiumUser', {
+                                    pesan: "999999999999999 kode"
+                                }
+                                )}>
+                                tes data
+                            </Button> */}
+
 
                         </Center>
                     </Stack>
