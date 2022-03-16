@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Center, Heading, Box, VStack, FormControl, HStack, Link, Button, Select, Input, CheckIcon, ScrollView, } from 'native-base'
+import { Center, Box, VStack, FormControl, HStack, Link, Button, Select, Input, CheckIcon, ScrollView, View, } from 'native-base'
 import DatePicker from 'react-native-neat-date-picker'
 import { useDispatch } from 'react-redux';
 import { actionCreateItinerary } from '../store/actions/itineraryAction';
@@ -10,6 +10,8 @@ export const ItineraryForm = () => {
     const [open, setOpen] = useState(false)
     const [showDatePicker, setShowDatePicker] = useState(false)
     const [showDatePicker1, setShowDatePicker1] = useState(false)
+    const [showDatePicker2, setShowDatePicker2] = useState(false)
+    const [formCondition, setFormCondition] = useState(false)
     const dispatch = useDispatch()
     let [inputItinerary, setInputItinerary] = React.useState({
         title: "",
@@ -26,32 +28,39 @@ export const ItineraryForm = () => {
         estimatedPricePlace: "",
         ratingPlace: "",
         itineraryOrder: 1,
-        datePlace: "",
-        transportationType: "",
-        from: "",
-        to: "",
-        distance: "",
-        estimatedTime: "",
-        estimatedPriceTrans: ""
+        datePlace: ""
+        // transportationType: "",
+        // from: "",
+        // to: "",
+        // distance: "",
+        // estimatedTime: "",
+        // estimatedPriceTrans: ""
     })
-
+  
     function handleOnChange(e, name) {
-        console.log(name, e)
+        console.log( e, "===")
         setInputItinerary({ ...inputItinerary, [name]: e })
-        console.log(inputItinerary)
+        if(e === 'solo'){
+            setFormCondition(false)
+        }else if( e === 'public'){
+            setFormCondition(true)
+        }else if( e === 'private'){
+            setFormCondition(true)
+        }
     }
 
     function prosesSubmit() {
         dispatch(actionCreateItinerary(inputItinerary))
     }
 
-
-
     const openDatePicker = (modal) => {
         if(modal === "startDate"){
             setShowDatePicker(true)
-        }else{
+        }else if(modal === "endDate" ){
             setShowDatePicker1(true)
+        }
+        else{
+            setShowDatePicker2(true)
         }
     }
 
@@ -59,19 +68,26 @@ export const ItineraryForm = () => {
         // You should close the modal in here
         if(modal === "startDate"){
             setShowDatePicker(false)
-        }else{
+        }if(modal === "datePlace" ){
+            setShowDatePicker2(false)
+        }
+        else{
             setShowDatePicker1(false)
         }
         
     }
     const onConfirm = (date, name) => {
-        console.log(date, name)
+        console.log(date, name, "====")
         // You should close the modal in here
         if(name === "dateStart"){
             setShowDatePicker(false)
             setInputItinerary({ ...inputItinerary, [name]: date.dateString })
-        }else{
+        }if(name === "dateEnd"){
             setShowDatePicker1(false)
+            setInputItinerary({ ...inputItinerary, [name]: date.dateString })
+        }
+        else{
+            setShowDatePicker2(false)
             setInputItinerary({ ...inputItinerary, [name]: date.dateString })
         }
 
@@ -146,7 +162,6 @@ export const ItineraryForm = () => {
                             <Input value={inputItinerary.estimatedPriceTrans} onChangeText={(e)=>handleOnChange(e, "estimatedPriceTrans")}/>
                             <FormControl.Label>Type</FormControl.Label>
                             <Input value={inputItinerary.type} onChangeText={(e)=>handleOnChange(e, "type")}/> */}
-
                             <FormControl.Label>Title</FormControl.Label>
                             <Input value={inputItinerary.title} onChangeText={(val) => handleOnChange(val, "title")} />
                             <FormControl.Label>Destination</FormControl.Label>
@@ -211,12 +226,19 @@ export const ItineraryForm = () => {
                                 endIcon: <CheckIcon size="5" />
                             }} mt={1} onValueChange={itemValue => handleOnChange(itemValue, "type")}>
                                 <Select.Item label="Public" value="public" />
-                                <Select.Item label="Private" value="Private" />
-                                <Select.Item label="Solo" value="Solo" />
+                                <Select.Item label="Private" value="private" />
+                                <Select.Item label="Solo" value="solo" />
 
                             </Select>
-                            <FormControl.Label>Sharing member slot</FormControl.Label>
-                            <Input value={inputItinerary.sharingMemberSlot.toString()} onChangeText={(val) => handleOnChange(val, "sharingMemberslot")} />
+                            { formCondition ?
+                            <View> 
+                                <FormControl.Label>Sharing member slot</FormControl.Label>
+                                <Input value={inputItinerary.sharingMemberSlot.toString()} onChangeText={(val) => handleOnChange(val, "sharingMemberslot")} />
+                            </View>
+                            :
+                            null
+                            }
+                            
                             <FormControl.Label>Name Group</FormControl.Label>
                             <Input value={inputItinerary.nameGroup} onChangeText={(val)=>handleOnChange(val, "nameGroup")}/>
                             <FormControl.Label>Name Place</FormControl.Label>
@@ -230,8 +252,22 @@ export const ItineraryForm = () => {
                             <FormControl.Label>Itinerary Order</FormControl.Label>
                             <Input value={inputItinerary.itineraryOrder.toString()} onChangeText={(val)=>handleOnChange(val, "itineraryOrder")}/>
                             <FormControl.Label>Date Place</FormControl.Label>
-                            <Input value={inputItinerary.datePlace} onChangeText={(val)=>handleOnChange(val, "datePlace")}/>
-                            <FormControl.Label>Transportation type</FormControl.Label>
+                            <Button mx={5} borderRadius={70} width={130} colorScheme="red" size="sm" variant={"solid"} _text={{
+                                marginLeft: 4,
+                                marginRight: 4,
+                                color: "white",
+                                fontWeight: "bold"
+                            }} px="3" onPress={() => openDatePicker('datePlace')}>
+                                Pick Date
+                            </Button>
+                            <DatePicker
+                                isVisible={showDatePicker2}
+                                mode={'single'}
+                                onCancel={() => onCancel("datePlace")}
+                                onConfirm={(val) => onConfirm(val,"datePlace")}
+                            />
+                            {/* <Input value={inputItinerary.datePlace} placeholder="yyyy-mm-dd" onChangeText={(val)=>handleOnChange(val, "datePlace")}/> */}
+                            {/* <FormControl.Label>Transportation type</FormControl.Label>
                             <Input value={inputItinerary.transportationType} onChangeText={(val)=>handleOnChange(val, "transportationType")}/>
                             <FormControl.Label>From</FormControl.Label>
                             <Input value={inputItinerary.from} onChangeText={(val)=>handleOnChange(val, "from")}/>
@@ -242,7 +278,7 @@ export const ItineraryForm = () => {
                             <FormControl.Label>Estimated Time</FormControl.Label>
                             <Input value={inputItinerary.estimatedTime} onChangeText={(val)=>handleOnChange(val, "estimatedTime")}/>
                             <FormControl.Label>Estimated PriceTrans</FormControl.Label>
-                            <Input value={inputItinerary.estimatedPriceTrans} onChangeText={(val)=>handleOnChange(val, "estimatedPriceTrans")}/>
+                            <Input value={inputItinerary.estimatedPriceTrans} onChangeText={(val)=>handleOnChange(val, "estimatedPriceTrans")}/> */}
                             {/* <FormControl.Label>Type</FormControl.Label>
                             <Input value={inputItinerary.type} onChangeText={(val)=>handleOnChange(val, "type")}/> */}
                         </FormControl>

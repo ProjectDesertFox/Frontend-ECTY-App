@@ -24,7 +24,7 @@ import { getAccessToken } from './store/actions/userActions';
 import { useEffect } from 'react';
 import { SettingTab } from './tab/SettingTab';
 import { FriendTab } from './tab/FriendTab';
-import { Destination } from './screens/Destination';
+import { Destination } from './screens/DestinationForm';
 import {BudgetCalculation} from './screens/BudgetCalculation'
 
 const Stack = createNativeStackNavigator()
@@ -77,13 +77,13 @@ export default function App() {
                   <Icon type='feather' name='settings' color={props.color} />
                 )
               }} />
-               <Tab.Screen name="BudgetCalculation" component={BudgetCalculation} options={{
+               {/* <Tab.Screen name="BudgetCalculation" component={BudgetCalculation} options={{
                 headerShown: false,
                 title: 'Budget',
                 tabBarIcon: (props) => (
                   <Icon type='feather' name='settings' color={props.color} />
                 )
-              }} />
+              }} /> */}
               {/* <Tab.Screen name="Destination" component={Destination} options={{
                 headerShown: true,
                 title: 'Destination',

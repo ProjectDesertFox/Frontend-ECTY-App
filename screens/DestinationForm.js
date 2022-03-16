@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Center, Text, Box, VStack, FormControl, HStack, Link, Button, Select, Input, CheckIcon, ScrollView, } from 'native-base'
 
-export const Destination = () => {
+export const Destination = ({route}) => {
     let [service, setService] = React.useState("");
 
     return (

@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionResultJoin } from "../store/actions/itineraryAction";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
-export const BudgetCalculation = ({ route }) => {
+export const BudgetCalculation = ({ route, navigation}) => {
   // console.log(route, "=route di budget")
   let groupChatId = route.params.id;
   console.log(groupChatId, "id grup");
@@ -36,9 +36,8 @@ export const BudgetCalculation = ({ route }) => {
       return (
         //   <Text>{JSON.stringify(itineraryResult.itinerary)}</Text>
         <>
-         
             <View>
-              <Text mx={4} my={2} fontSize="2xl" bold>
+              <Text mx={4} my={10} fontSize="2xl" bold>
                 Estimated Budget
               </Text>
               {/* Price Budget Estimation */}
@@ -60,6 +59,24 @@ export const BudgetCalculation = ({ route }) => {
                   onPress={() => navigation.navigate("Login")}
                 >
                   Chatting
+                </Button>
+                <Button
+                  mx={5}
+                  borderRadius={70}
+                  width={130}
+                  colorScheme="red"
+                  size="sm"
+                  variant={"solid"}
+                  _text={{
+                    marginLeft: 4,
+                    marginRight: 4,
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
+                  px="3"
+                  onPress={() => navigation.navigate("Destination", {id:groupChatId})}
+                >
+                  Add Destination
                 </Button>
                 <Button
                   mx={5}
