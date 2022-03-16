@@ -1,6 +1,7 @@
 import { ScrollView, StyleSheet, TouchableOpacity,FlatList } from "react-native";
 import { Box, Image, Text, Flex } from "native-base";
 const destination = require("../data/destination.json");
+const hotel= require("../data/hotel.json")
 
 export const DetailCity = ({ navigation, route }) => {
   // console.log(route)
@@ -10,10 +11,14 @@ export const DetailCity = ({ navigation, route }) => {
     let destinationFilter = destination.filter((e) => {
       return e.ProvinceId === provinsiId
     })
+
+    let hotelFilter = hotel.filter((e) => {
+      return e.ProvinceId === provinsiId
+    })
   const DestinationData = ({ destinationFilter }) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("DetailDestination")}
+        onPress={() => navigation.navigate("DetailDestination", {id: destinationFilter.id, otherParam:'destination'})}
       >
         <Box
           alignSelf="center"
@@ -45,12 +50,6 @@ export const DetailCity = ({ navigation, route }) => {
                   {destinationFilter.destinationName}
                 </Text>
                 <Text fontSize="xs">{destinationFilter.city}</Text>
-                <Text fontSize="xs" italic>
-                  {" "}
-                  (1.2 km){" "}
-                </Text>
-              </Box>
-              <Box>
                 <Text fontSize="md" bold>
                   {destinationFilter.pricePerOrg}
                 </Text>
@@ -59,6 +58,58 @@ export const DetailCity = ({ navigation, route }) => {
                   {destinationFilter.rating}
                 </Text>
               </Box>
+        
+            </Box>
+          </Box>
+        </Box>
+      </TouchableOpacity>
+    )
+  }
+
+  const HotelData = ({hotelFilter}) => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate("DetailDestination", {id: hotelFilter.id, otherParam:'hotel'})}
+      >
+        <Box
+          alignSelf="center"
+          bg="gray.50"
+          borderRadius={7}
+          width="95%"
+          shadow={5}
+          marginTop={5}
+        >
+          <Box
+            mx={5}
+            my={5}
+            Flex
+            flexDirection="row"
+            justifyContent="flex-start"
+          >
+            <Image
+              size={120}
+              resizeMode="cover"
+              source={{
+                uri: hotelFilter.imageHotel,
+              }}
+              alt={"Alternate Text"}
+              borderRadius={10}
+            />
+            <Box ml={7} Flex direction="column" justifyContent="space-between">
+              <Box>
+                <Text fontSize="lg" bold>
+                  {hotelFilter.nameHotel}
+                </Text>
+                <Text fontSize="xs">{hotelFilter.city}</Text>
+                <Text fontSize="md" bold>
+                  {hotelFilter.price}
+                </Text>
+                <Text fontSize="xs" italic>
+                  {" "}
+                  {hotelFilter.rating}
+                </Text>
+              </Box>
+        
             </Box>
           </Box>
         </Box>
@@ -134,6 +185,11 @@ export const DetailCity = ({ navigation, route }) => {
             
           data={destinationFilter}
           renderItem={({ item }) => <DestinationData destinationFilter={item} />}
+        />
+        <FlatList  nestedScrollEnabled
+            
+            data={hotelFilter}
+            renderItem={({ item }) => <HotelData hotelFilter={item} />}
         />
       </ScrollView>
     </>

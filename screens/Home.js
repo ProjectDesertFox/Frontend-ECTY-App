@@ -34,6 +34,7 @@ const { width } = Dimensions.get("screen");
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { DetailCity } from "./DetailCity";
 const provinsi = require("../data/province.json");
+const destination = require("../data/destination.json")
 
 export const Home = ({ navigation }) => {
   const Stack = createNativeStackNavigator();
@@ -314,7 +315,10 @@ export const Home = ({ navigation }) => {
               showsHorizontalScrollIndicator={false}
               horizontal
               data={itineraries}
-              renderItem={({ item }) => <ItenerariesCard itineraries={item} />}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => <ItenerariesCard itineraries={item} /> }
+              
+              
             />
           </View>
           <View>
@@ -325,7 +329,9 @@ export const Home = ({ navigation }) => {
               showsHorizontalScrollIndicator={false}
               horizontal
               data={places}
+              keyExtractor={(item) => item.id}
               renderItem={({ item }) => <RecomendedCard place={item} />}
+            
             />
           </View>
           
@@ -333,7 +339,7 @@ export const Home = ({ navigation }) => {
             <View style={style.containerExplore}>
                 {
                     provinsi.map((el) => (
-                        <GridCity provinsi={el} />
+                        <GridCity provinsi={el} key={el.id}/>
                     ))
                 }
             </View>
@@ -355,7 +361,7 @@ export const Home = ({ navigation }) => {
             <View style={{ paddingLeft: 15, paddingRight: 20 }}>
                 {
                     rates.map((el) => (
-                        <BestRate rate={el} />
+                        <BestRate rate={el} key={el.id}/>
                     ))
                 }
             </View>

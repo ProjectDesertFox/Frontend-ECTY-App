@@ -35,11 +35,18 @@ export const Itinerary = ({navigation}) => {
             <ScrollView>
                 <View >
                     <Button onPress={() => navigation.navigate('ItineraryForm')} style={{marginLeft:15, width:135,marginBottom:15, marginTop:10}}>Create Itenerary</Button>
-                    <FlatList nestedScrollEnabled
+                    <View style={style.containerExplore}>
+                        {
+                            rates.map((el) => (
+                                <BestRate rate={el} key={el.id} />
+                            ))
+                        }
+                    </View>
+                    {/* <FlatList nestedScrollEnabled
                         contentContainerStyle={{paddingLeft:15,paddingRight:20}}
                         data={rates}
                         renderItem={({item}) => <BestRate rate={item} />}
-                        />
+                        /> */}
                 </View>
             </ScrollView>
         
