@@ -102,6 +102,8 @@ export function loginUser(email, password, navigation){
       data: {email: email, password: password}
     }) 
     .then(({data}) => {
+      console.log(data)
+
       dispatch(getUserData(access_token))
       dispatch(getUserFriendList(access_token))
       dispatch(changeAccessToken(data.access_token))

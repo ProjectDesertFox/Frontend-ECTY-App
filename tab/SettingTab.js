@@ -2,7 +2,7 @@ import { Login } from '../screens/Login';
 import { Register } from '../screens/Register';
 import { PremiumUser } from '../screens/PremiumUser';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Setting from '../screens/Setting1'
+import Setting from '../screens/Setting'
 import { CekStatusPremiumUser } from '../screens/CekStatusPremiumUser';
 
 
