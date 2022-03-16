@@ -78,9 +78,9 @@ export const Home = ({navigation}) => {
                             
                             <Text>Destination: {itineraries.ItineraryPlaces.name}</Text>
                             <Text>Price: {itineraries.ItineraryPlaces.estimatedPrice}</Text>
-                            <Text>Transportation: {itineraries.ItineraryTransportations.transportationType}</Text>
+                            {/* <Text>Transportation: {itineraries.ItineraryTransportations.transportationType}</Text>
                             <Text>Date Start: {itineraries.ItineraryTransportations.from}</Text>
-                            <Text>Estimated Transportation Price: {itineraries.ItineraryTransportations.estimatedPrice}</Text>
+                            <Text>Estimated Transportation Price: {itineraries.ItineraryTransportations.estimatedPrice}</Text> */}
                         </Modal.Body>
                         <Modal.Footer>
                             <Button.Group space={2}>
