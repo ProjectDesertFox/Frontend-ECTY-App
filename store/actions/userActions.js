@@ -1,4 +1,4 @@
-import { USERSTATUS_CHANGED, USEREMAILCODE_CHANGED, USER_LOADING, USER_ERROR, ACCESSTOKEN_CHANGED, USERDATA_CHANGED, USERFRIENDLIST_CHANGED } from "../actionKeys";
+import { USERSTATUS_CHANGED, USEREMAILCODE_CHANGED, USER_LOADING, USER_ERROR, ACCESSTOKEN_CHANGED, USERDATA_CHANGED, USERFRIENDLIST_CHANGED, SEARCHFRIEND_CHANGED } from "../actionKeys";
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // https://ecty-backend.herokuapp.com/
@@ -102,8 +102,9 @@ export function loginUser(email, password, navigation){
       data: {email: email, password: password}
     }) 
     .then(({data}) => {
+      dispatch(getUserData(access_token))
+      dispatch(getUserFriendList(access_token))
       dispatch(changeAccessToken(data.access_token))
-      console.log(navigation)
       navigation.navigate('Profile')
       return storeAcessToken(data.access_token)
     })
@@ -150,7 +151,7 @@ export function getUserData(access_token){
       headers: {access_token}
     })
     .then(({data}) => {
-      console.log(data, 'SINI DATANYAAAA')
+      // console.log(data, 'USER DATA')
       dispatch(changeUserData(data))
     })
     .catch(err => {
@@ -264,4 +265,53 @@ export const removeAccesstoken = () => {
 
 export function changeUserFriendList (data) {
   return {type: USERFRIENDLIST_CHANGED, userFriendList: data}
+}
+
+export function searchingFriend (ectyId, access_token) {
+  return (dispatch, previousState) => {
+    dispatch(userLoading(true))
+    axios({
+      url: `https://ecty-backend.herokuapp.com/users/findEctyId/${ectyId}`,
+      method: 'GET',
+      headers: {access_token}
+    })
+    .then(({data}) => {
+      dispatch(changeSearchFriend(data.search))
+    })
+    .catch(err => {
+      console.log(err, 'ERROR WOE')
+      dispatch(userError(err))
+    })
+    .finally(() => {
+      dispatch(userLoading(false))
+    })
+  }
+}
+
+export function changeSearchFriend (data){
+  return {type: SEARCHFRIEND_CHANGED, searchFriend: data}
+}
+
+export function addingFriendProcess (friendId, access_token, setPage){
+  console.log(friendId)
+  return (dispatch, previousState) => {
+    dispatch(userLoading(true))
+    axios({
+      url: `https://ecty-backend.herokuapp.com/friendList/${friendId}`,
+      method: 'POST',
+      headers: {access_token}
+    })
+    .then(({data}) => {
+      console.log(data)
+      dispatch(getUserFriendList(access_token))
+      setPage('FriendList')
+    })
+    .catch(err => {
+      console.log(err, 'ERROR WOE DISINI')
+      dispatch(userError(err))
+    })
+    .finally(() => {
+      dispatch(userLoading(false))
+    })
+  }
 }

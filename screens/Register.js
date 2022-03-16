@@ -34,10 +34,10 @@ export const Register = ({navigation}) => {
     <>
     <ScrollView>
     <Center w="100%">
-    <Box safeArea p="2" w="90%" maxW="290" py="8">
+    {/* <Box safeArea p="2" w="90%" maxW="290" py="8"> */}
         {
             status === '1' ?
-            <>
+            <Box safeArea p="2" w="90%" maxW="290" py="8">
                 <Heading mt="1" color="coolGray.600">
                 <Text>1. Register Your Active Email</Text>
                 </Heading>
@@ -50,8 +50,9 @@ export const Register = ({navigation}) => {
                         Submit
                     </Button>
                 </VStack>
-            </>
+            </Box>
             : status === '2' ?
+            <Center>
             <CodePin
             code={userEmailCode} // code.length is used if you not pass number prop
             success={() => stepTwoSuccess()} // If user fill '2018', success is called
@@ -59,8 +60,9 @@ export const Register = ({navigation}) => {
             error="Wrong OTP" // If user fail (fill '2017' for instance)
             autoFocusFirst={false} // disabling auto-focus
             />
+            </Center>
             : status === '3' ?
-            <>
+            <Box safeArea p="2" w="90%" maxW="290" py="8">
                 <Heading mt="1" color="coolGray.600">
                 <Text>3. Register Your ECTY Account!</Text>
                 </Heading>
@@ -81,18 +83,20 @@ export const Register = ({navigation}) => {
                         Sign up
                     </Button>
                 </VStack>
-            </>
+            </Box>
             : status === 'done' ?
+            <Box safeArea p="2" w="90%" maxW="290" py="8">
             <Center>
             <Text>You Already Have Ecty Account!</Text>
             <Button onPress={() => navigation.navigate('Login')} mt="2" colorScheme="indigo">
                 Log In
             </Button>
             </Center>
+            </Box>
             :
             null
         }
-    </Box>
+    {/* </Box> */}
     </Center>
     </ScrollView>
     </>

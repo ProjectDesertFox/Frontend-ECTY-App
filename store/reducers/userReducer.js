@@ -1,4 +1,4 @@
-import { USEREMAILCODE_CHANGED, USERSTATUS_CHANGED, USER_ERROR, USER_LOADING,ACCESSTOKEN_CHANGED, USERDATA_CHANGED, STATUSVALIDKTP_CHANGED, USERFRIENDLIST_CHANGED } from '../actionKeys'
+import { USEREMAILCODE_CHANGED, USERSTATUS_CHANGED, USER_ERROR, USER_LOADING,ACCESSTOKEN_CHANGED, USERDATA_CHANGED, STATUSVALIDKTP_CHANGED, USERFRIENDLIST_CHANGED, SEARCHFRIEND_CHANGED } from '../actionKeys'
 
 
 const initialState = {
@@ -9,7 +9,8 @@ const initialState = {
   access_token:false,
   userData: null,
   statusValidKTP: '',
-  userFriendList: []
+  userFriendList: [],
+  searchFriend: null
 }
 
 export default function userReducer (state = initialState, action){
@@ -30,6 +31,8 @@ export default function userReducer (state = initialState, action){
       return { ...state, statusValidKTP: action.statusValidKTP}
     case USERFRIENDLIST_CHANGED:
       return { ...state, userFriendList: action.userFriendList}
+    case SEARCHFRIEND_CHANGED:
+      return { ...state, searchFriend: action.searchFriend}
     default:
       return state
   }
