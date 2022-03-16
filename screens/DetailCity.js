@@ -44,18 +44,21 @@ export const DetailCity = ({ navigation, route }) => {
               alt={"Alternate Text"}
               borderRadius={10}
             />
-            <Box ml={7} Flex direction="column" justifyContent="space-between">
+            <Box ml={7} Flex direction="column" justifyContent="space-around">
               <Box>
-                <Text fontSize="lg" bold>
+                <Text fontSize="sm" bold>
                   {destinationFilter.destinationName}
                 </Text>
                 <Text fontSize="xs">{destinationFilter.city}</Text>
-                <Text fontSize="md" bold>
-                  {destinationFilter.pricePerOrg}
+                
+              </Box>
+              <Box>
+
+              <Text fontSize="sm" bold>
+                  Rp.{destinationFilter.pricePerOrg}
                 </Text>
                 <Text fontSize="xs" italic>
-                  {" "}
-                  {destinationFilter.rating}
+                  rating {destinationFilter.rating}
                 </Text>
               </Box>
         
@@ -95,21 +98,23 @@ export const DetailCity = ({ navigation, route }) => {
               alt={"Alternate Text"}
               borderRadius={10}
             />
-            <Box ml={7} Flex direction="column" justifyContent="space-between">
+            <Box ml={7} Flex direction="column" justifyContent="space-around">
               <Box>
-                <Text fontSize="lg" bold>
+                <Text fontSize="sm" bold>
                   {hotelFilter.nameHotel}
                 </Text>
                 <Text fontSize="xs">{hotelFilter.city}</Text>
-                <Text fontSize="md" bold>
-                  {hotelFilter.price}
+                
+              </Box>
+              <Box>
+              <Text fontSize="sm" bold>
+                  Rp.{hotelFilter.price}
                 </Text>
                 <Text fontSize="xs" italic>
                   {" "}
-                  {hotelFilter.rating}
+                  rating {hotelFilter.rating}
                 </Text>
               </Box>
-        
             </Box>
           </Box>
         </Box>
@@ -181,12 +186,12 @@ export const DetailCity = ({ navigation, route }) => {
       <Text style={style.sectionTitle}>Explore Destination</Text>
       <ScrollView>
         <FlatList
-            nestedScrollEnabled
+            
             
           data={destinationFilter}
           renderItem={({ item }) => <DestinationData destinationFilter={item} />}
         />
-        <FlatList  nestedScrollEnabled
+        <FlatList  
             
             data={hotelFilter}
             renderItem={({ item }) => <HotelData hotelFilter={item} />}
