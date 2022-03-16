@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as ImagePicker from 'expo-image-picker';
 
 export default function Profile({ navigation }) {
+    // const [userData, setUserData] = useState([])
     let access_token = useSelector(state => state.user.access_token)
     let userData = useSelector(state => state.user.userData)
     let dispatch = useDispatch()

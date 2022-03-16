@@ -25,6 +25,7 @@ import { useEffect } from 'react';
 import { SettingTab } from './tab/SettingTab';
 import { FriendTab } from './tab/FriendTab';
 import { Destination } from './screens/Destination';
+import {BudgetCalculation} from './screens/BudgetCalculation'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -72,6 +73,13 @@ export default function App() {
               <Tab.Screen name="SettingTab" component={SettingTab} options={{
                 headerShown: false,
                 title: 'Setting',
+                tabBarIcon: (props) => (
+                  <Icon type='feather' name='settings' color={props.color} />
+                )
+              }} />
+               <Tab.Screen name="BudgetCalculation" component={BudgetCalculation} options={{
+                headerShown: false,
+                title: 'Budget',
                 tabBarIcon: (props) => (
                   <Icon type='feather' name='settings' color={props.color} />
                 )

@@ -10,3 +10,4 @@ export const USERFRIENDLIST_CHANGED = 'userFriendList/changed'
 export const ITINERARY_CHANGED = 'itinerary/changed'
 export const ITINERARY_ERROR = 'itinerary/error'
 export const ITINERARY_LOADING =  'itinerary/loading'
+export const ITINERARYRESULT_CHANGED = "itinerary/itineraryresult_changed"

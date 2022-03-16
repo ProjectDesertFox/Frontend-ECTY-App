@@ -153,7 +153,7 @@ export const ItineraryForm = () => {
                             <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose destination" _selectedItem={{
                                 bg: "teal.600",
                                 endIcon: <CheckIcon size="5" />
-                            }} mt={1} onValueChange={itemValue => handleOnChange(itemValue, "distination")}>
+                            }} mt={1} onValueChange={itemValue => handleOnChange(itemValue, "destination")}>
                                 <Select.Item label="Bali" value="Bali" />
                                 <Select.Item label="NTT" value="BTT" />
                                 <Select.Item label="Lombok" value="Lombok" />
@@ -161,7 +161,7 @@ export const ItineraryForm = () => {
                                 <Select.Item label="Sumbawa" value="Sumbawa" />
                             </Select>
 
-                            <FormControl.Label>Star Date</FormControl.Label>
+                            <FormControl.Label>Start Date</FormControl.Label>
                             <Button mx={5} borderRadius={70} width={130} colorScheme="red" size="sm" variant={"solid"} _text={{
                                 marginLeft: 4,
                                 marginRight: 4,
@@ -202,21 +202,21 @@ export const ItineraryForm = () => {
                                 onConfirm={(val) => onConfirm(val,"dateEnd")}
                             />
                             <FormControl.Label>Rating</FormControl.Label>
-                            <Input value={inputItinerary.rating} onChangeText={(val) => handleOnChange(val, "rating")} />
+                            <Input value={inputItinerary.rating.toString()} onChangeText={(val) => handleOnChange(val, "rating")} />
                             <FormControl.Label>Budget</FormControl.Label>
-                            <Input value={inputItinerary.budget} onChangeText={(val) => handleOnChange(val, "budget")} />
+                            <Input value={inputItinerary.budget.toString()} onChangeText={(val) => handleOnChange(val, "budget")} />
                             <FormControl.Label>Type</FormControl.Label>
                             <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose type" _selectedItem={{
                                 bg: "teal.600",
                                 endIcon: <CheckIcon size="5" />
                             }} mt={1} onValueChange={itemValue => handleOnChange(itemValue, "type")}>
-                                <Select.Item label="Public" value="Public" />
+                                <Select.Item label="Public" value="public" />
                                 <Select.Item label="Private" value="Private" />
                                 <Select.Item label="Solo" value="Solo" />
 
                             </Select>
                             <FormControl.Label>Sharing member slot</FormControl.Label>
-                            <Input value={inputItinerary.sharingMemberSlot} onChangeText={(val) => handleOnChange(val, "sharingMemberslot")} />
+                            <Input value={inputItinerary.sharingMemberSlot.toString()} onChangeText={(val) => handleOnChange(val, "sharingMemberslot")} />
                             <FormControl.Label>Name Group</FormControl.Label>
                             <Input value={inputItinerary.nameGroup} onChangeText={(val)=>handleOnChange(val, "nameGroup")}/>
                             <FormControl.Label>Name Place</FormControl.Label>
@@ -226,9 +226,9 @@ export const ItineraryForm = () => {
                             <FormControl.Label>Estimated Price Place</FormControl.Label>
                             <Input value={inputItinerary.estimatedPricePlace} onChangeText={(val)=>handleOnChange(val, "estimatedPricePlace")}/>
                             <FormControl.Label>Rating Places</FormControl.Label>
-                            <Input value={inputItinerary.ratingPlace} onChangeText={(val)=>handleOnChange(val, "ratingPlace")}/>
+                            <Input value={inputItinerary.ratingPlace.toString()} onChangeText={(val)=>handleOnChange(val, "ratingPlace")}/>
                             <FormControl.Label>Itinerary Order</FormControl.Label>
-                            <Input value={inputItinerary.itineraryOrder} onChangeText={(val)=>handleOnChange(val, "itineraryOrder")}/>
+                            <Input value={inputItinerary.itineraryOrder.toString()} onChangeText={(val)=>handleOnChange(val, "itineraryOrder")}/>
                             <FormControl.Label>Date Place</FormControl.Label>
                             <Input value={inputItinerary.datePlace} onChangeText={(val)=>handleOnChange(val, "datePlace")}/>
                             <FormControl.Label>Transportation type</FormControl.Label>
@@ -238,7 +238,7 @@ export const ItineraryForm = () => {
                             <FormControl.Label>to</FormControl.Label>
                             <Input value={inputItinerary.to} onChangeText={(val)=>handleOnChange(val, "to")}/>
                             <FormControl.Label>Distance</FormControl.Label>
-                            <Input value={inputItinerary.distance} onChangeText={(val)=>handleOnChange(val, "distance")}/>
+                            <Input value={inputItinerary.distance.toString()} onChangeText={(val)=>handleOnChange(val, "distance")}/>
                             <FormControl.Label>Estimated Time</FormControl.Label>
                             <Input value={inputItinerary.estimatedTime} onChangeText={(val)=>handleOnChange(val, "estimatedTime")}/>
                             <FormControl.Label>Estimated PriceTrans</FormControl.Label>
