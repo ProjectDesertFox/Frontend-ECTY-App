@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   View,
@@ -14,6 +13,7 @@ import {
   Image,
   SPACING
 } from 'react-native';
+import { ScrollView } from 'react-native-virtualized-view';
 import { Modal ,FormControl, Input,Button, Stack } from 'native-base';
 import places from '../data/recomendation';
 import iteneraries from '../data/itenerary';
@@ -30,6 +30,7 @@ import { actionGetItinerary, actionJoinItinerary } from '../store/actions/itiner
 const {width} = Dimensions.get('screen');
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {DetailCity} from './DetailCity'
+const provinsi = require('../data/province.json')
 
 
 export const Home = ({navigation}) => {
@@ -42,7 +43,7 @@ export const Home = ({navigation}) => {
     },[])
 
     function joinItinerary(id){
-        dispatch(actionJoinItinerary(id))
+        dispatch(actionJoinItinerary(id, navigation))
     }
     const ItenerariesCard=({itineraries}) =>{
 
@@ -76,7 +77,7 @@ export const Home = ({navigation}) => {
                             <Image style={{height:150, width:'100%'}} source={{uri:itineraries.imageItinerary}}/>
                             
                             <Text>Destination: {itineraries.ItineraryPlaces.name}</Text>
-                            <Text>Destination: {itineraries.ItineraryPlaces.estimatedPrice}</Text>
+                            <Text>Price: {itineraries.ItineraryPlaces.estimatedPrice}</Text>
                             <Text>Transportation: {itineraries.ItineraryTransportations.transportationType}</Text>
                             <Text>Date Start: {itineraries.ItineraryTransportations.from}</Text>
                             <Text>Estimated Transportation Price: {itineraries.ItineraryTransportations.estimatedPrice}</Text>
@@ -84,7 +85,7 @@ export const Home = ({navigation}) => {
                         <Modal.Footer>
                             <Button.Group space={2}>
                             <Button onPress={() => {
-                                joinItinerary(itineraries.User.EctyId)
+                                joinItinerary(itineraries.GroupChat.id)
                             }}>
                                 Join
                             </Button>
@@ -103,7 +104,9 @@ export const Home = ({navigation}) => {
             activeOpacity={0.8}
             // onPress={()=>NavigationContainer.navigate('Register')}
             >
-            <ImageBackground style={style.cardImage} source={{uri: place.image}} > 
+                <View key="{item}">
+
+            <ImageBackground  style={style.cardImage} source={{uri: place.image}} > 
               <Text
                 style={{
                   color: COLORS.white,
@@ -128,6 +131,7 @@ export const Home = ({navigation}) => {
                 </View>
               </View>
             </ImageBackground>
+                </View>
           </TouchableOpacity>
         );
     };
@@ -142,12 +146,12 @@ export const Home = ({navigation}) => {
 		longitudeDelta: 0.0421
 	})
 
-    const GridCity = ({city})=>{
+    const GridCity = ({provinsi})=>{
         return (
-            <TouchableOpacity style={{flex:1,flexDirection:'column',marginRight:5, marginLeft:5, marginBottom:5 }} onPress={()=>navigation.navigate('DetailCity',{id:city.id})}>
+            <TouchableOpacity style={{flex:1,flexDirection:'column',marginRight:5, marginLeft:5, marginBottom:5 }} onPress={()=>navigation.navigate('DetailCity',{ProvinceId:provinsi.ProvinceId})}>
 
-                <View >
-                    <ImageBackground style={{width:'100%', height:120}}source={{uri: city.image}}>
+                <View key="{item}">
+                    <ImageBackground style={{width:'100%', height:120}}source={{uri: provinsi.image}}>
                     <View
                     style={{
                         flex: 1,
@@ -158,7 +162,7 @@ export const Home = ({navigation}) => {
                     <View style={{flexDirection: 'row'}}>
                     {/* <Icon name="place" size={20} color={COLORS.white} /> */}
                     <Text style={{marginLeft: 5, color: COLORS.white, fontSize:17,fontWeight:'bold'}}>
-                        {city.name}
+                        {provinsi.provinceName}
                     </Text>
                     </View>
                 </View>
@@ -170,7 +174,7 @@ export const Home = ({navigation}) => {
 
     const BestRate = ({rate})=>{
         return (
-            <View style={{flexDirection:'row',padding:10,marginBottom:10,width:'100%',backgroundColor:'rgba(255,255,255,0.8)',borderRadius:10,shadowColor:'black',shadowOffset:{width:0,height:10},shadowOpacity:0.3,shadowRadius:20}}>
+            <View key="{item}" style={{flexDirection:'row',padding:10,marginBottom:10,width:'100%',backgroundColor:'rgba(255,255,255,0.8)',borderRadius:10,shadowColor:'black',shadowOffset:{width:0,height:10},shadowOpacity:0.3,shadowRadius:20}}>
                 <Image style={{width:100,height:100, marginBottom:5,padding:SPACING}} source={{uri: rate.image}}/>
                 <View style={{paddingLeft:7}}>
                     <Text>{rate.name}</Text>
@@ -253,7 +257,7 @@ export const Home = ({navigation}) => {
                 </View>
                     <View>
                         <Text style={style.sectionTitle}>Iteneraries Available</Text>
-                        <FlatList nestedScrollEnabled
+                        <FlatList 
                             contentContainerStyle={{paddingLeft: 15, paddingBottom: 15}}
                             showsHorizontalScrollIndicator={false}
                             horizontal
@@ -263,7 +267,7 @@ export const Home = ({navigation}) => {
                     </View>
                     <View>
                         <Text style={style.sectionTitle}>Recomended</Text>
-                        <FlatList nestedScrollEnabled
+                        <FlatList 
                             snapToInterval={width - 15}
                             contentContainerStyle={{paddingLeft: 15, paddingBottom: 15}}
                             showsHorizontalScrollIndicator={false}
@@ -274,17 +278,17 @@ export const Home = ({navigation}) => {
                     </View>
                     <View>
                         <Text style={style.sectionTitle}>Explore</Text>
-                        <FlatList nestedScrollEnabled
+                        <FlatList 
                             numColumns={3}
                             contentContainerStyle={{paddingLeft: 15, paddingBottom: 15, paddingRight:15}}
-                            data={cities}
-                            renderItem={({item})=> <GridCity city={item}/>}
+                            data={provinsi}
+                            renderItem={({item})=> <GridCity provinsi={item}/>}
                             keyExtractor={(_,index)=> index.toString()}
                             />
                     </View>
                     <View>
                         <Text style={style.sectionTitle}>Best Rate</Text>
-                        <FlatList nestedScrollEnabled
+                        <FlatList 
                             contentContainerStyle={{paddingLeft:15,paddingRight:20}}
                             data={rates}
                             renderItem={({item}) => <BestRate rate={item} />}
