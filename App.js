@@ -44,13 +44,13 @@ export default function App() {
       <NativeBaseProvider>
         <NavigationContainer>
           <Tab.Navigator tabBarOptions={{ activeTintColor: '#00CEC9' }}>
-            <Tab.Screen name="Cek" component={GroupChat} options={{
+            {/* <Tab.Screen name="Cek" component={GroupChat} options={{
               headerShown: true,
               tabBarIcon: (props) => (
                 <Icon type='feather' name='home' color={props.color} />
               ),
               title: 'Home'
-            }} />
+            }} /> */}
             <Tab.Screen name="HomeTab" component={HomeTab} options={{
               headerShown: false,
               tabBarIcon: (props) => (

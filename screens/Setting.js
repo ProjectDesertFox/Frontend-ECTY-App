@@ -1,4 +1,4 @@
-import { Divider, Image, Center, Box, Text, Button, View, Stack, HStack } from "native-base";
+import { Divider, Image, Center, Box, Text, Button, View, Stack, HStack, Heading } from "native-base";
 import { useEffect, useState } from "react";
 import { getAccessToken, loginUser, removeAccesstoken, stepOneKtp } from "../store/actions/userActions";
 import { useDispatch, useSelector } from 'react-redux'
@@ -65,77 +65,82 @@ export default function Profile({ navigation }) {
                             <Text fonstSize='lg'>{userData ? userData.email : ''}</Text>
                         </Box>
                         <Divider my="2" mx="5" bg="#DFE6E9" thickness="2" />
+                        {/* Ganti baru dari iqba diminta fifit */}
                         <Box Flex flexDirection='row' justifyContent='space-between' px={5} mt={5}>
                             <Text fonstSize='lg'>KTP</Text>
                             {
-                                userData ? 
-                                <>
-                                {
-                                    !userData.UserVerification.validKTP ?
-                                    <Button colorScheme="yellow" size="sm" variant={"solid"} _text={{
+                                userData ?
+                                    <>
+                                        {
+                                            userData.UserVerification.validKTP == 'false' || 'False' ?
+                                                <Button colorScheme="yellow" size="sm" variant={"solid"} _text={{
+                                                    color: "white",
+                                                    fontWeight: "bold"
+                                                }} px="3"
+                                                    onPress={() => setPage('Upload KTP')}
+                                                >
+                                                    Need Verification
+                                                </Button>
+                                                :
+                                                <Text fonstSize='lg'>{userData.UserVerification.validKTP}</Text>
+                                        }
+                                    </>
+                                    :
+                                    null
+                            }
+                        </Box>
+                        {/* Ganti baru dari iqba diminta fifit */}
+
+                        <Divider my="2" mx="5" bg="#DFE6E9" thickness="2" />
+                        <Stack space={2} alignItems="center">
+                            <HStack space={3} alignItems="center">
+                                <Box Flex flexDirection='row' justifyContent='center' px={1} mt={5}>
+                                    <Button mx={5} borderRadius={70} colorScheme="yellow" size="sm" variant={"solid"} _text={{
+                                        marginLeft: 4,
+                                        marginRight: 4,
                                         color: "white",
                                         fontWeight: "bold"
                                     }} px="3"
-                                        onPress={() => setPage('Upload KTP')}
+                                        onPress={() => navigation.navigate('PremiumUser')}
                                     >
-                                        Need Verification
+                                        Go Premium
                                     </Button>
-                                    :
-                                    <Text fonstSize='lg'>{userData.UserVerification.validKTP}</Text>
-                                }
-                                </>
-                                :
-                                null
-                            }
-                        </Box>
-                        <Divider my="2" mx="5" bg="#DFE6E9" thickness="2" />
-                        <Stack space={2} alignItems="center">
-                        <HStack space={3} alignItems="center">
-                        <Box Flex flexDirection='row' justifyContent='center' px={1} mt={5}>
-                            <Button mx={5} borderRadius={70} colorScheme="yellow" size="sm" variant={"solid"} _text={{
-                                marginLeft: 4,
-                                marginRight: 4,
-                                color: "white",
-                                fontWeight: "bold"
-                            }} px="3"
-                                onPress={() => navigation.navigate('PremiumUser')}
-                            >
-                                Go Premium
-                            </Button> 
-                        </Box>
-                        <Box Flex flexDirection='row' justifyContent='center' px={1} mt={5}>
-                            <Button mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
-                                marginLeft: 4,
-                                marginRight: 4,
-                                color: "white",
-                                fontWeight: "bold"
-                            }} px="3"
-                                onPress={() => dispatch(removeAccesstoken())}
-                            >
-                                LOGOUT
-                            </Button>
-                        </Box>
-                        </HStack>
+                                </Box>
+                                <Box Flex flexDirection='row' justifyContent='center' px={1} mt={5}>
+                                    <Button mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
+                                        marginLeft: 4,
+                                        marginRight: 4,
+                                        color: "white",
+                                        fontWeight: "bold"
+                                    }} px="3"
+                                        onPress={() => dispatch(removeAccesstoken())}
+                                    >
+                                        LOGOUT
+                                    </Button>
+                                </Box>
+                            </HStack>
                         </Stack>;
                     </Box>
                     : page === 'Upload KTP' ?
                         <>
-                            <Text>UPLOAD KTP</Text>
+                            <Heading m={3} bold >UPLOAD KTP</Heading>
                             <View>
                                 <Button
                                     onPress={() => pickImage()}
                                 >
                                     Upload File
                                 </Button>
-                                <Image
-                                    source={{ uri: image ? image.uri : null }}
-                                    style={{ width: 50, height: 50 }}
-                                    alt='ktp'
-                                />
+                                <Center>
+                                    <Image
+                                        source={{ uri: image ? image.uri : null }}
+                                        style={{ width: 200, height: 200 }}
+                                        alt='ktp'
+                                    />
+                                </Center>
                             </View>
                         </>
-                    :
-                    navigation.replace('Login')
+                        :
+                        navigation.replace('Login')
             }
         </>
     )

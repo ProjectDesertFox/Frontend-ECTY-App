@@ -1,7 +1,7 @@
 [
     {
         "id":1,
-        "destinationName":"Taman Impian Jaya Ancol",
+        "destinationName":"Taman Impian Ancol",
         "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRbM-uiZRw4-Ktjlx4hRrsCkt9Df41jRxvMw&usqp=CAU",
         "activeTime":"06:00 - 22:00",
         "rating":4.5,
@@ -45,7 +45,7 @@
     },
     {
         "id": 5,
-        "destinationName":"Taman Safari Indonesia Bogor",
+        "destinationName":"Taman Safari Indonesia",
         "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_se6ZZSfhaINPRKS0hpJvDorSt7x7iYA5LOzOo1lSHV98Phdiy09scX2-njw-5T2dwjLM7bfq703gdQ-v-wiesQ",
         "activeTime":"09:00 - 17:00",
         "rating":4.4,

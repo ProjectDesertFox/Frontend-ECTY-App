@@ -1,0 +1,57 @@
+[
+    {
+        "id":11,
+        "destinationName":"Gunung Bromo",
+        "image":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ8CwXZLpPL77CyUfLefVstYh37fmek7uBxFdCoDrwST3Re8VysOj5V1ymzs2uaIhdQvmWXhB7pkDEKC4qxRs5g5g",
+        "activeTime":"24 Hours",
+        "rating": 4.9,
+        "pricePerOrg":"34000",
+        "city":"Malang",
+        "description":"Bromo Tengger Semeru National Park, known locally as Taman Nasional Bromo Tengger Semeru is a national park located in East Java, Indonesia, to the east of Malang and Lumajang, to the south of Pasuruan and Probolinggo, and to the southeast of Surabaya, the capital of East Java. It is the only conservation area in Indonesia that has a sand sea, the Tengger Sand Sea, across which is the caldera of an ancient volcano from which four new volcanic cones have emerged. This unique feature covers a total area of 5,250 hectares at an altitude of about 2,100 meters. The massif also contains the highest mountain in Java, Mount Semeru, four lakes and 50 rivers. It is named after the Tengger tribe. The explosion of the volcano that created the caldera, happened ca. 45.000 years ago, in an event similar to the Krakatau eruption. The Tengger Sand Sea has been protected since 1919. The Bromo Tengger Semeru National Park was declared a national park in 1982.",
+        "ProvinceId": 16
+    },
+    {
+        "id":12,
+        "destinationName":"Pura Uluwatu",
+        "image":"https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcSHvnNb_vuqQfA8zOOM7y4FEN_QbmSJV1NIKvViUq7Uc1DSa9Acgw--z_GqGx7y18rIq1j3P1bIsFyRYjld4ov6Pg",
+        "activeTime":"07:00 - 19:00",
+        "rating":4.9,
+        "pricePerOrg":"30000",
+        "city":"Badung",
+        "description":"Uluwatu Temple is a Balinese Hindu sea temple located in Uluwatu. The temple is regarded as one of the sad kahyangan and is dedicated to Sang Hyang Widhi Wasa in his manifestation as Rudra.",
+        "ProvinceId": 17
+    },
+    {
+        "id":13,
+        "destinationName":"Pantai Kuta",
+        "image":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQUx3xdsKinPxMmhrB_ZQXl48Su5nwR8uSPk46-Y8lRAiyQYdkOwFfb1f4KZsOfIAsk90hQMsaTdN6xH7MD_AqqJw",
+        "activeTime":"24 Hours",
+        "rating": 4.5,
+        "pricePerOrg":"15000",
+        "city":"Badung",
+        "description":"Vibrant locale for sunsets & surfing",
+        "ProvinceId": 17
+    },
+    {
+        "id":14,
+        "destinationName":"Pantai Sanur",
+        "image":"https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcSe-3lbBluoi1irMccwVcjYGwBnsDkuIib5kA372LK-pPPxnU00xmVpWkIonDbPMzxPDhgegBk2a3fhUTnsgRNzbQ",
+        "activeTime":"24 Hours",
+        "rating": 4.5,
+        "pricePerOrg":"5000",
+        "city":"Denpasar",
+        "description":"Sanur is a coastal stretch of beach east of Denpasar in southeast Bali, which has grown into a little town in its own right. A 5.1 km area of Sanur's coastline, from Matahari Terbit Beach to Mertasari Beach, was reclaimed in 2008.",
+        "ProvinceId": 17
+    },
+    {
+        "id":15,
+        "destinationName":"Pura Besar Besakih",
+        "image":"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRguwG4ol7-1p8tGIv5jm-XQRbqh3nELLYUptCIQG9k7JvlNU4Dv5aLjoU5sQkviKBl32jFdZs-wOi9aoftFBKQnw",
+        "activeTime":"08:00 - 18:00",
+        "rating":4.5,
+        "pricePerOrg":"30000",
+        "city":"Denpasar",
+        "description":"Besakih Temple is a pura complex in the village of Besakih on the slopes of Mount Agung in eastern Bali, Indonesia. It is the most important, the largest and holiest temple of Balinese Hinduism, and one of a series of Balinese temples. Perched nearly 1000 meters up the side of Gunung Agung, it is an extensive complex of 23 separate but related temples with the largest and most important being Pura Penataran Agung. The temple is built on six levels, terraced up the slope. The entrance is marked by a candi bentar, and beyond it the Kori Agung is the gateway to the second courtyard.",
+        "ProvinceId": 17
+    }
+]

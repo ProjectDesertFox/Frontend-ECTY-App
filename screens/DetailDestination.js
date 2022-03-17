@@ -1,24 +1,6 @@
 import { Divider, Image, Center, Box, Text, AspectRatio, Stack, HStack, ScrollView, Progress, Button } from "native-base";
-// import { Button } from "react-native";
-// import React, { useState } from 'react';
-// import { StyleSheet, Dimensions } from "react-native";
-// import MapView, { Callout, Circle, Marker } from "react-native-maps"
-
-// const { width } = Dimensions.get('screen');
-// const [ pin, setPin ] = React.useState({
-//     latitude: 37.78825,
-//     longitude: -122.4324
-// })
-// const [ region, setRegion ] = React.useState({
-//     latitude: 37.78825,
-//     longitude: -122.4324,
-//     latitudeDelta: 0.0922,
-//     longitudeDelta: 0.0421
-// })
 const destination = require('../data/destination.json')
 const hotel = require('../data/hotel.json')
-
-
 export const DetailDestination = ({ navigation, route }) => {
     console.log(route)
     const idDestination = route.params.id
@@ -38,7 +20,6 @@ export const DetailDestination = ({ navigation, route }) => {
         <>
             {
                 type === "destination" ?
-               
                 <ScrollView>
                 <Center>
                     <AspectRatio w="100%" ratio={16 / 9}>
@@ -282,7 +263,7 @@ export const DetailDestination = ({ navigation, route }) => {
                                 <Text flexDirection='row' justifyContent='flex-end' fontSize='2xl' bold>Rp.{hotelFilter[0].price}</Text>
                             </Box>
                             <Box my={-1} flexDirection='row' justifyContent='flex-end'>
-                                <Text fontSize='sm'>Per Person</Text>
+                                <Text fontSize='sm'>Per Night</Text>
                             </Box>
                         </Box>
                     </Box>
@@ -366,7 +347,7 @@ export const DetailDestination = ({ navigation, route }) => {
                                             #
                                         </Text>
                                         <Box w="90%" maxW="400">
-                                            <Progress value={90} mx="4" />
+                                            <Progress value={80} mx="4" />
                                         </Box>
                                     </Box>
                                     <Box flexDirection='row' justifyContent='flex-start' alignItems='center'>
@@ -377,7 +358,7 @@ export const DetailDestination = ({ navigation, route }) => {
                                             #
                                         </Text>
                                         <Box w="90%" maxW="400">
-                                            <Progress value={60} mx="4" />
+                                            <Progress value={50} mx="4" />
                                         </Box>
                                     </Box>
                                     <Box flexDirection='row' justifyContent='flex-start' alignItems='center'>
@@ -388,7 +369,7 @@ export const DetailDestination = ({ navigation, route }) => {
                                             #
                                         </Text>
                                         <Box w="90%" maxW="400">
-                                            <Progress value={40} mx="4" />
+                                            <Progress value={30} mx="4" />
                                         </Box>
                                     </Box>
                                     <Box flexDirection='row' justifyContent='flex-start' alignItems='center'>
@@ -462,7 +443,8 @@ export const DetailDestination = ({ navigation, route }) => {
                     {/* Maps akhir */}
 
                     {/* tombol add to itenarary */}
-                    <Button mx={5} borderRadius={70} colorScheme="blue" size="sm" variant={"solid"} _text={{
+                    {/* ini adalah add to ititenrary kalau jadi dijalankan */}
+                    {/* <Button mx={5} borderRadius={70} colorScheme="blue" size="sm" variant={"solid"} _text={{
                         marginLeft: 4,
                         marginRight: 4,
                         color: "white",
@@ -471,8 +453,7 @@ export const DetailDestination = ({ navigation, route }) => {
                         onPress={() => navigation.navigate('Root', { screen: 'Tes' })}
                     >
                         ADD TO ITENERARY
-
-                    </Button>
+                    </Button> */}
                     {/* <Button
                         title='go to Tes'
                         onPress={() => navigation.navigate('Root', { screen: 'Tes' })}
