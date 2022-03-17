@@ -34,6 +34,7 @@ export const FriendsLists = ({ navigation }) => {
             {
                 page === 'FriendList' ?
                     <>
+<<<<<<< HEAD
                         <Box flexDirection='row' justifyContent='flex-end' px={1}>
                             <Button mt={5} mx={5} borderRadius={70} colorScheme="blue" size="sm" variant={"solid"} _text={{
                                 marginLeft: 4,
@@ -89,6 +90,34 @@ export const FriendsLists = ({ navigation }) => {
                                 :
                                 null
                         }
+=======
+                    <ScrollView>
+                    {
+                        userFriendList.map(el => (
+                        <>
+                        {/* <Text>{JSON.stringify(el)}</Text> */}
+                        <Box key={el.id} Flex flexDirection="row" justifyContent="space-between" alignItems='center'>
+                            <Box mx={5} my={2} Flex flexDirection="row" justifyContent="flex-start" alignItems='center'>
+                                <Image
+                                    size={60}
+                                    resizeMode="cover"
+                                    source={{
+                                        uri: "https://wallpaperaccess.com/full/317501.jpg"
+                                    }}
+                                    alt={"Alternate Text"}
+                                    borderRadius={100} />
+                                <Box ml={5} maxW="60%" overflow="hidden">
+                                    <Box>
+                                        <Text fontSize="lg" bold>{el.Friend.username}</Text>
+                                    </Box>
+                                </Box>
+                            </Box>
+                        </Box>
+                        </>
+                        ))
+                    }
+                    </ScrollView>
+>>>>>>> thalia
                     </>
                     :
                     page === 'AddFriend' ?

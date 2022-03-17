@@ -102,8 +102,11 @@ export function loginUser(email, password, navigation){
       data: {email: email, password: password}
     }) 
     .then(({data}) => {
+<<<<<<< HEAD
       console.log(data)
 
+=======
+>>>>>>> thalia
       dispatch(getUserData(data.access_token))
       dispatch(getUserFriendList(data.access_token))
       dispatch(changeAccessToken(data.access_token))
