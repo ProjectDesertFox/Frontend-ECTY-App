@@ -108,6 +108,7 @@ export function loginUser(email, password, navigation){
       dispatch(getUserFriendList(data.access_token))
       dispatch(changeAccessToken(data.access_token))
       navigation.navigate('Profile')
+      // const id = await AsyncStorage.setItem('id', data.id )
       return storeAcessToken(data.access_token)
     })
     .then((data) => {
@@ -174,7 +175,7 @@ export function getUserFriendList(access_token){
       headers: {access_token}
     })
     .then(({data}) => {
-      console.log(data, 'SINI DATA FRIENDLISTNYA')
+      // console.log(data, 'SINI DATA FRIENDLISTNYA')
       dispatch(changeUserFriendList(data))
     })
     .catch(err => {
