@@ -4,6 +4,7 @@ import { Itinerary } from '../screens/Itinerary';
 import { Destination } from '../screens/DestinationForm';
 import { BudgetCalculation } from '../screens/BudgetCalculation';
 
+
 export const ItineraryTab = () => {
     const Stack = createNativeStackNavigator();
 

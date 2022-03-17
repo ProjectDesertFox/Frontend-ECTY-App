@@ -276,7 +276,19 @@ export const DetailCity = ({ navigation, route }) => {
 
       <Heading ml={3} mt={5}>Explore Destination</Heading>
       <ScrollView>
-        <FlatList
+      <View>
+          {
+            destinationFilter.map((e)=>(
+              <DestinationData destinationFilter={e} />
+            ))
+          }
+        </View>
+        <View>
+          {
+            hotelFilter.map((e) => <HotelData hotelFilter={e} />)
+          }
+        </View>
+        {/* <FlatList
 
 
           data={destinationFilter}
@@ -286,7 +298,7 @@ export const DetailCity = ({ navigation, route }) => {
 
           data={hotelFilter}
           renderItem={({ item }) => <HotelData hotelFilter={item} />}
-        />
+        /> */}
       </ScrollView>
     </>
   );
