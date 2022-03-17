@@ -18,7 +18,7 @@ export const AddFriends = ({ navigation }) => {
     return (
         <>
             <>
-            <Box Flex flexDirection='row' justifyContent='flex-end' px={1} mt={5}>
+            <Box flexDirection='row' justifyContent='flex-end' px={1} mt={5}>
                 <Button mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
                     marginLeft: 4,
                     marginRight: 4,
