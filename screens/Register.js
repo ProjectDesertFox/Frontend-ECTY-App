@@ -4,6 +4,8 @@ import { ScrollView, StyleSheet } from 'react-native'
 import CodePin from 'react-native-pin-code'
 import { checkUserVerification, stepOneEmail, stepThreeRegisterAccount, stepTwoVerifyEmail } from '../store/actions/userActions';
 import { useSelector, useDispatch } from 'react-redux';
+import Loading from "../components/loading";
+import Alerting from "../components/alert";
 
 export const Register = ({navigation}) => {
     const dispatch = useDispatch()
@@ -14,6 +16,9 @@ export const Register = ({navigation}) => {
     //for registering account
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    //for loading error
+    let userLoading = useSelector(state => state.user.userLoading)
+    let userError = useSelector(state => state.user.userError)
 
     async function stepOne(){ //sending email to verify
         let check = await dispatch(checkUserVerification(email))
@@ -32,9 +37,14 @@ export const Register = ({navigation}) => {
 
     return (
     <>
-    <ScrollView>
-    <Center w="100%">
-    {/* <Box safeArea p="2" w="90%" maxW="290" py="8"> */}
+    {
+        userLoading ?
+        <Loading></Loading>
+        : userError ?
+        <Alerting alert={userError}></Alerting>
+        :
+        <ScrollView>
+        <Center w="100%">
         {
             status === '1' ?
             <Box safeArea p="2" w="90%" maxW="290" py="8">
@@ -96,9 +106,9 @@ export const Register = ({navigation}) => {
             :
             null
         }
-    {/* </Box> */}
     </Center>
     </ScrollView>
+    }
     </>
     )
 };

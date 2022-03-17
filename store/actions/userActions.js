@@ -14,13 +14,11 @@ export function stepOneEmail(UserEmail){
       data: { UserEmail }
     })
     .then(({data}) => {
-      console.log(data, "data stepone")
       data = data.data
       dispatch(changeUserStatus(data.statusValidEmail))
       dispatch(changeUserCode(data.UniqueNumberVerificationEmail))
     })
     .catch(err => {
-      console.log(err)
       dispatch(userError(err))
     })
     .finally(() => {
@@ -102,9 +100,7 @@ export function loginUser(email, password, navigation){
       data: {email: email, password: password}
     }) 
     .then(({data}) => {
-      console.log(data)
-
-      dispatch(getUserData(data.access_token))
+      dispatch(getUserData(data.access_token1))
       dispatch(getUserFriendList(data.access_token))
       dispatch(changeAccessToken(data.access_token))
       navigation.navigate('Profile')
@@ -153,7 +149,6 @@ export function getUserData(access_token){
       headers: {access_token}
     })
     .then(({data}) => {
-      // console.log(data, 'USER DATA')
       dispatch(changeUserData(data))
     })
     .catch(err => {
@@ -174,7 +169,6 @@ export function getUserFriendList(access_token){
       headers: {access_token}
     })
     .then(({data}) => {
-      console.log(data, 'SINI DATA FRIENDLISTNYA')
       dispatch(changeUserFriendList(data))
     })
     .catch(err => {
@@ -186,15 +180,13 @@ export function getUserFriendList(access_token){
   }
 }
 
-export function stepOneKtp(result, setPage){
+export function stepOneKtp(result, setPage, access_token){
   return async (dispatch, previousState) => {
-    console.log('masuk1')
     let formData = new FormData()
     let localUri = result.uri
     let filename = localUri.split('/').pop()
     let match = /\.(\w+)$/.exec(filename)
     let type = match ? `image/${match[1]}` : `image`
-    // console.log({ uri: localUri, name: filename, type }, '==')
     formData.append('ktp', { uri: localUri, name: filename, type })
     let access_token = await AsyncStorage.getItem('access_token')
     // let access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0aGFsaWEiLCJpYXQiOjE2NDczMzU4NDZ9.1hNddLHqdabpBfgpnLBTUPTtBcQYFqaNO_Zpy22kC4c'
@@ -209,7 +201,6 @@ export function stepOneKtp(result, setPage){
     })
     .then(async response => {
       const resjson = await response.json()
-      console.log(resjson,'response++++++++++');
       if (response.ok) {
         return resjson
       } else {
@@ -217,11 +208,10 @@ export function stepOneKtp(result, setPage){
       }
     })
     .then(data => {
-      console.log(data, 'HASILNYA WOE')
+      dispatch(userData(access_token))
       setPage('Profile')
     })
     .catch(err => {
-      console.log(err, 'ERRORRRRRRRR')
       dispatch(userError(err))
     })
     .finally(() => {
@@ -281,7 +271,6 @@ export function searchingFriend (ectyId, access_token) {
       dispatch(changeSearchFriend(data.search))
     })
     .catch(err => {
-      console.log(err, 'ERROR WOE')
       dispatch(userError(err))
     })
     .finally(() => {
@@ -295,7 +284,6 @@ export function changeSearchFriend (data){
 }
 
 export function addingFriendProcess (friendId, access_token, setPage){
-  console.log(friendId)
   return (dispatch, previousState) => {
     dispatch(userLoading(true))
     axios({
@@ -304,12 +292,10 @@ export function addingFriendProcess (friendId, access_token, setPage){
       headers: {access_token}
     })
     .then(({data}) => {
-      console.log(data)
       dispatch(getUserFriendList(access_token))
       setPage('FriendList')
     })
     .catch(err => {
-      console.log(err, 'ERROR WOE DISINI')
       dispatch(userError(err))
     })
     .finally(() => {

@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from "react";
 import { addingFriendProcess, getAccessToken, getUserData, getUserFriendList, searchingFriend } from "../store/actions/userActions";
-
+import Loading from "../components/loading";
+import Alerting from "../components/alert";
 export const FriendsLists = ({ navigation }) => {
     const dispatch = useDispatch()
     const userData = useSelector(state => state.user.userData)
@@ -14,6 +15,8 @@ export const FriendsLists = ({ navigation }) => {
     const [page, setPage] = useState('FriendList')
     const [searchFriend, setSearchFriend] = useState('')
     const searchFriendData = useSelector(state => state.user.searchFriend)
+    let userLoading = useSelector(state => state.user.userLoading)
+    let userError = useSelector(state => state.user.userError)
 
     useEffect(() => {
         dispatch(getAccessToken())
@@ -25,73 +28,60 @@ export const FriendsLists = ({ navigation }) => {
         dispatch(searchingFriend(searchFriend, access_token))
     }
     function addFriendFunc(friendId) {
-        console.log('ak keteken')
+        // console.log('ak keteken')
         dispatch(addingFriendProcess(friendId, access_token, setPage))
         // console.log(friendId)
     }
     return (
         <>
             {
-                page === 'FriendList' ?
+                userLoading ?
+                <Loading></Loading>
+                : userError ?
+                <Alerting alert={userError}></Alerting>
+                : page === 'FriendList' && access_token ?
                     <>
-                        <Box flexDirection='row' justifyContent='flex-end' px={1}>
-                            <Button mt={5} mx={5} borderRadius={70} colorScheme="blue" size="sm" variant={"solid"} _text={{
-                                marginLeft: 4,
-                                marginRight: 4,
-                                color: "white",
-                                fontWeight: "bold",
-                            }} px="3"
-                                onPress={() => setPage('AddFriend')}
-                            >
-                                Add Friends
-                            </Button>
+                    <Box flexDirection='row' justifyContent='flex-end' px={1}>
+                        <Button mt={5} mx={5} borderRadius={70} colorScheme="blue" size="sm" variant={"solid"} _text={{
+                            marginLeft: 4,
+                            marginRight: 4,
+                            color: "white",
+                            fontWeight: "bold",
+                        }} px="3"
+                            onPress={() => setPage('AddFriend')}
+                        >
+                            Add Friends
+                        </Button>
+                    </Box>
+                    <ScrollView>
+                    {
+                        userFriendList.map(el => (
+                        <>
+                        {/* <Text>{JSON.stringify(el)}</Text> */}
+                        <Box key={el.id} Flex flexDirection="row" justifyContent="space-between" alignItems='center'>
+                            <Box mx={5} my={2} Flex flexDirection="row" justifyContent="flex-start" alignItems='center'>
+                                <Image
+                                    size={60}
+                                    resizeMode="cover"
+                                    source={{
+                                        uri: "https://wallpaperaccess.com/full/317501.jpg"
+                                    }}
+                                    alt={"Alternate Text"}
+                                    borderRadius={100} />
+                                <Box ml={5} maxW="60%" overflow="hidden">
+                                    <Box>
+                                        <Text fontSize="lg" bold>{el.Friend.username}</Text>
+                                    </Box>
+                                </Box>
+                            </Box>
                         </Box>
-                        {/* <Text>{userData ? userData.username : ''} Friend List</Text> */}
-                        {
-                            userFriendList ?
-                                <>
-                                    <ScrollView>
-                                        {
-                                            userFriendList.map(el => (
-                                                <>
-                                                    {/* <Text>{JSON.stringify(el, null, 4)}</Text> */}
-                                                    <Box key={el.id} Flex flexDirection="row" justifyContent="space-between" alignItems='center'>
-                                                        <Box mx={5} my={2} Flex flexDirection="row" justifyContent="flex-start" alignItems='center'>
-                                                            <Image
-                                                                size={60}
-                                                                resizeMode="cover"
-                                                                source={{
-                                                                    uri: "https://wallpaperaccess.com/full/317501.jpg"
-                                                                }}
-                                                                alt={"Alternate Text"}
-                                                                borderRadius={100} />
-                                                            <Box ml={5} maxW="60%" overflow="hidden">
-                                                                <Box>
-                                                                    <Text fontSize="lg" bold>{el ? el.Friend.username : ''}</Text>
-                                                                    <Text fontSize="xs" >{el ? el.Friend.EctyId : ''}</Text>
-                                                                </Box>
-                                                            </Box>
-                                                        </Box>
-                                                        {/* <Button onPress={addFriendFunc(el.id)} mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
-                                marginLeft: 4,
-                                marginRight: 4,
-                                color: "white",
-                                fontWeight: "bold"
-                            }} px="3">
-                            ADD
-                            </Button> */}
-                                                    </Box>
-                                                </>
-                                            ))
-                                        }
-                                    </ScrollView>
-                                </>
-                                :
-                                null
-                        }
+                        </>
+                        ))
+                    }
+                    </ScrollView>
                     </>
                     :
-                    page === 'AddFriend' ?
+                    page === 'AddFriend' && access_token ?
                         <>
                             <Box flexDirection='row' justifyContent='flex-end' px={1}>
                                 <Button mt={5} mx={5} borderRadius={70} colorScheme="blue" size="sm" variant={"solid"} _text={{
@@ -151,7 +141,14 @@ export const FriendsLists = ({ navigation }) => {
                             }
                         </>
                         :
-                        null
+                        <Button mt={300} onPress={navigation.navigate('Login')} mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
+                            marginLeft: 4,
+                            marginRight: 4,
+                            color: "white",
+                            fontWeight: "bold"
+                        }} px="3">
+                            Please Login First
+                        </Button>
             }
         </>
     )
