@@ -172,7 +172,7 @@ export const ItineraryForm = () => {
                             {/* <Input /> */}
 
                             <FormControl.Label>Rating</FormControl.Label>
-                            <Input value={inputItinerary.ratingItinerary.toString()} placeholder="1-5" onChangeText={(val) => handleOnChange(val, "rating")} />
+                            <Input value={inputItinerary.ratingItinerary.toString()} placeholder="1-5" onChangeText={(val) => handleOnChange(val, "ratingItinerary")} />
                             <FormControl.Label>Budget</FormControl.Label>
                             <Input value={+inputItinerary.budget} onChangeText={(val) => handleOnChange(val, "budget")} />
                             <FormControl.Label>Type</FormControl.Label>

@@ -1,7 +1,8 @@
 import axios from "axios"
-import { ITINERARYRESULT_CHANGED, ITINERARY_CHANGED, ITINERARY_ERROR, ITINERARY_LOADING } from "../actionKeys"
+import { ITINERARYBYONE_CHANGED, ITINERARYRESULT_CHANGED, ITINERARY_CHANGED, ITINERARY_ERROR, ITINERARY_LOADING } from "../actionKeys"
 import { getAccessToken } from "./userActions"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { getPendingResultAsync } from "expo-image-picker"
 
 export function actionGetItinerary(itineraries){
     // console.log("masuk")
@@ -97,6 +98,26 @@ export function actionResultJoin({id}){
         })
         .catch(err => console.log(err))
         .finally(_ => dispatch(actionLoadingItinerary(false)))
+    }
+}
+
+export function actionGetOneItinerary(id){
+    return async(dispatch, previousState) =>{
+        const values = await AsyncStorage.getItem('access_token')
+        const data =  axios({
+                url:`https://ecty-backend.herokuapp.com/itinerary/${id}`,
+                method:'GET',
+                headers: {access_token: values}
+            })
+            .then(({data}) => {
+                console.log(data)
+                dispatch({
+                    type:ITINERARYBYONE_CHANGED,
+                    itineraryById:data
+                })
+            })
+            .catch(err => consele.log(err))
+
     }
 }
 

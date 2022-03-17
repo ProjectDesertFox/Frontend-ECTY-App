@@ -1,10 +1,11 @@
-import { ITINERARYRESULT_CHANGED, ITINERARY_CHANGED, ITINERARY_ERROR, ITINERARY_LOADING } from "../actionKeys";
+import { ITINERARYBYONE_CHANGED, ITINERARYRESULT_CHANGED, ITINERARY_CHANGED, ITINERARY_ERROR, ITINERARY_LOADING } from "../actionKeys";
 
 const initialState ={
     itineraries : [],
     itineraryError: false,
     itineraryLoading:false,
-    itineraryResult:{}
+    itineraryResult:{},
+    itineraryById:{}
 }
 
 export default function itineraryReducer (state= initialState,action){
@@ -17,6 +18,8 @@ export default function itineraryReducer (state= initialState,action){
             return { ...state, itineraryLoading:action.itineraryLoading}
         case ITINERARYRESULT_CHANGED:
             return {...state, itineraryResult: action.itineraryResult}
+        case ITINERARYBYONE_CHANGED:
+            return {...state, itineraryById:action.itineraryById}
         default:
             return state
     }
