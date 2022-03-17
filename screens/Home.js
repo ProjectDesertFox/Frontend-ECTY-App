@@ -4,17 +4,15 @@ import {
   StatusBar,
   StyleSheet,
   View,
-  Text,
   TextInput,
   ImageBackground,
   FlatList,
   Dimensions,
   TouchableOpacity,
-  Image,
   SPACING,
   ScrollView,
 } from "react-native";
-import { Modal, FormControl, Input, Button, Stack } from "native-base";
+import { Modal, FormControl, Input, Button, Stack, Box, Image, Text } from "native-base";
 import places from "../data/recomendation";
 import iteneraries from "../data/itenerary";
 import cities from "../data/city";
@@ -29,6 +27,7 @@ import {
   actionGetItinerary,
   actionJoinItinerary,
 } from "../store/actions/itineraryAction";
+
 // import { NavigationContainer } from '@react-navigation/native';
 const { width } = Dimensions.get("screen");
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -104,12 +103,12 @@ export const Home = ({ navigation }) => {
     );
   };
 
-  
+
   const RecomendedCard = ({ place }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        // onPress={()=>NavigationContainer.navigate('Register')}
+      // onPress={()=>NavigationContainer.navigate('Register')}
       >
         <View key="{item}">
           <ImageBackground
@@ -146,10 +145,12 @@ export const Home = ({ navigation }) => {
       </TouchableOpacity>
     );
   };
+
   const [pin, setPin] = React.useState({
     latitude: -6.2,
     longitude: 106.816666,
   });
+
   const [region, setRegion] = React.useState({
     latitude: -6.2,
     longitude: 106.816666,
@@ -161,8 +162,8 @@ export const Home = ({ navigation }) => {
     return (
       <TouchableOpacity
         style={{
-        width:120,
-        borderRadius:50,
+          width: 120,
+          borderRadius: 50,
           marginRight: 5,
           marginLeft: 5,
           marginBottom: 5,
@@ -171,9 +172,9 @@ export const Home = ({ navigation }) => {
           navigation.navigate("DetailCity", { ProvinceId: provinsi.ProvinceId })
         }
       >
-        <View style={{borderRadius:20}}>
+        <View style={{ borderRadius: 20 }}>
           <ImageBackground
-            style={{ width: "100%", height: 120, borderRadius:20 }}
+            style={{ width: "100%", height: 120, borderRadius: 20 }}
             source={{ uri: provinsi.image }}
           >
             <View
@@ -204,120 +205,70 @@ export const Home = ({ navigation }) => {
     );
   };
 
-  let destinationFilter = destination.filter((e)=>{
-      return (e.pricePerOrg <= 100000)
+  let destinationFilter = destination.filter((e) => {
+    return (e.pricePerOrg <= 100000)
   })
+
   const BestRate = ({ destinationFilter }) => {
     return (
-      <View
-        key="{item}"
-        style={{
-          flexDirection: "row",
-          padding: 10,
-          marginBottom: 10,
-          width: "100%",
-          backgroundColor: "rgba(255,255,255,0.8)",
-          borderRadius: 10,
-          shadowColor: "black",
-          shadowOffset: { width: 0, height: 10 },
-          shadowOpacity: 0.3,
-          shadowRadius: 20,
-        }}
-      >
-        <Image
-          style={{ width: 100, height: 100, marginBottom: 5, padding: SPACING }}
-          source={{ uri: destinationFilter.image }}
-        />
-        <View style={{ paddingLeft: 7 }}>
-          <Text>{destinationFilter.destinationName}</Text>
-        </View>
-        <View style={{ paddingLeft: 7 }}>
-          <Text>{destinationFilter.pricePerOrg}</Text>
-        </View>
-        <View style={{ paddingLeft: 7 }}>
-          <Text>{destinationFilter.city}</Text>
-        </View>
-      </View>
+      <ScrollView>
+        {/* Besr Price Card */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate("DetailDestination", { id: destinationFilter.id, otherParam: 'destination' })}
+        >
+          <Box
+            key="item"
+            alignSelf="center"
+            bg="gray.50"
+            borderRadius={7}
+            width="95%"
+            shadow={5}
+            marginTop={5}
+          >
+            <Box
+              mx={4} my={5}
+              flexDirection="row"
+              justifyContent="flex-start"
+            >
+              <Image
+                size={90}
+                resizeMode="cover"
+                source={{
+                  uri: destinationFilter.image,
+                }}
+                alt={"Alternate Text"}
+                borderRadius={10}
+              />
+              <Box ml={4} Flex direction="column" justifyContent="space-around">
+                <Box>
+                  <Text fontSize="sm" bold>
+                    {destinationFilter.destinationName}
+                  </Text>
+                  <Text fontSize="xs" italic>{destinationFilter.city}</Text>
+                </Box>
+                <Box>
+
+                  <Text fontSize="sm" bold>
+                    Rp.{destinationFilter.pricePerOrg}
+                  </Text>
+                  <Text fontSize="xs" italic>
+                    Rating {destinationFilter.rating}
+                  </Text>
+                </Box>
+
+              </Box>
+            </Box>
+          </Box>
+        </TouchableOpacity>
+      </ScrollView>
     );
   };
+  
   return (
     <>
-      {/* <Stack.Navigator>
-                    <Stack.Screen name="Home" component={Home} />
-                    <Stack.Screen name="DetailCity" component={DetailCity} />
-
-                </Stack.Navigator> */}
-
       <SafeAreaView>
         <ScrollView>
-          <View style={{ flex: 1 / 6 }}>
-            {/* <GooglePlacesAutocomplete
-                        placeholder="Search"
-                        fetchDetails={true}
-                        GooglePlacesSearchQuery={{
-                            rankby: "distance"
-                        }}
-                        onPress={(data, details = null) => {
-                            // 'details' is provided when fetchDetails = true
-                            console.log(data, details)
-                            setRegion({
-                                latitude: details.geometry.location.lat,
-                                longitude: details.geometry.location.lng,
-                                latitudeDelta: 0.0922,
-                                longitudeDelta: 0.0421
-                            })
-                        }}
-                        query={{
-                            key: "KEY",
-                            language: "en",
-                            components: "country:us",
-                            types: "establishment",
-                            radius: 30000,
-                            location: `${region.latitude}, ${region.longitude}`
-                        }}
-                        styles={{
-                            container: { flex: 0, position: "absolute", width: "100%", zIndex: 1 },
-                            listView: { backgroundColor: "white" }
-                        }}
-                    /> */}
-            <MapView
-              style={style.map}
-              initialRegion={{
-                latitude: -6.204826731081594,
-                longitude: 106.84530863311248,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }}
-              provider="google"
-            >
-              <Marker
-                coordinate={{
-                  latitude: region.latitude,
-                  longitude: region.longitude,
-                }}
-              />
-              <Marker
-                coordinate={pin}
-                pinColor="black"
-                draggable={true}
-                onDragStart={(e) => {
-                  console.log("Drag start", e.nativeEvent.coordinates);
-                }}
-                onDragEnd={(e) => {
-                  setPin({
-                    latitude: e.nativeEvent.coordinate.latitude,
-                    longitude: e.nativeEvent.coordinate.longitude,
-                  });
-                }}
-              >
-                <Callout>
-                  <Text>I'm here</Text>
-                </Callout>
-              </Marker>
-              <Circle center={pin} radius={1000} />
-            </MapView>
-            {/* batas akhir map */}
-          </View>
+          {/* itinerary */}
           <View>
             <Text style={style.sectionTitle}>Iteneraries Available</Text>
             <FlatList
@@ -326,11 +277,10 @@ export const Home = ({ navigation }) => {
               horizontal
               data={itineraries}
               keyExtractor={(item) => item.id}
-              renderItem={({ item }) => <ItenerariesCard itineraries={item} /> }
-              
-              
+              renderItem={({ item }) => <ItenerariesCard itineraries={item} />}
             />
           </View>
+          {/* Rekomendasi */}
           <View>
             <Text style={style.sectionTitle}>Recomended</Text>
             <FlatList
@@ -341,39 +291,26 @@ export const Home = ({ navigation }) => {
               data={places}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => <RecomendedCard place={item} />}
-            
             />
           </View>
-          
-          <Text style={style.sectionTitle}>Explore</Text>
-            <View style={style.containerExplore}>
-                {
-                    provinsi.map((el) => (
-                        <GridCity provinsi={el} key={el.id}/>
-                    ))
-                }
-            </View>
 
-            {/* <FlatList
-                numColumns={3}
-                contentContainerStyle={{
-                paddingLeft: 15,
-                paddingBottom: 15,
-                paddingRight: 15,
-              }}
-              data={provinsi}
-              renderItem={({ item }) => <GridCity provinsi={item} />}
-              keyExtractor={(_, index) => index.toString()}
-            /> */}
-   
+          <Text style={style.sectionTitle}>Explore</Text>
+          <View style={style.containerExplore}>
+            {
+              provinsi.map((el) => (
+                <GridCity provinsi={el} key={el.id} />
+              ))
+            }
+          </View>
+          {/* Best Price */}
           <View>
             <Text style={style.sectionTitle}>Best Price</Text>
             <View style={{ paddingLeft: 15, paddingRight: 20 }}>
-                {
-                    destinationFilter.map((el) => (
-                        <BestRate destinationFilter={el} key={el.id}/>
-                    ))
-                }
+              {
+                destinationFilter.map((el) => (
+                  <BestRate destinationFilter={el} key={el.id} />
+                ))
+              }
             </View>
             {/* <FlatList
               contentContainerStyle={{ paddingLeft: 15, paddingRight: 20 }}
@@ -421,9 +358,9 @@ const style = StyleSheet.create({
     width: 140,
     height: 200,
   },
-  containerExplore:{
-      flexDirection:'row',
-      flexWrap:'wrap',
-      justifyContent:'center'
+  containerExplore: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   }
 });
