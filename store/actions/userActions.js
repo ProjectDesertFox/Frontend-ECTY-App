@@ -102,8 +102,8 @@ export function loginUser(email, password, navigation){
       data: {email: email, password: password}
     }) 
     .then(({data}) => {
-      dispatch(getUserData(access_token))
-      dispatch(getUserFriendList(access_token))
+      dispatch(getUserData(data.access_token))
+      dispatch(getUserFriendList(data.access_token))
       dispatch(changeAccessToken(data.access_token))
       navigation.navigate('Profile')
       return storeAcessToken(data.access_token)

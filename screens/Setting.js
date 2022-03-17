@@ -1,6 +1,6 @@
 import { Divider, Image, Center, Box, Text, Button, View, Stack, HStack } from "native-base";
 import { useEffect, useState } from "react";
-import { getAccessToken, loginUser, removeAccesstoken, stepOneKtp } from "../store/actions/userActions";
+import { getAccessToken, getUserData, loginUser, removeAccesstoken, stepOneKtp } from "../store/actions/userActions";
 import { useDispatch, useSelector } from 'react-redux'
 import * as ImagePicker from 'expo-image-picker';
 
@@ -13,6 +13,7 @@ export default function Profile({ navigation }) {
 
     useEffect(() => {
         dispatch(getAccessToken())
+        dispatch(getUserData(access_token))
     }, [])
 
     const [image, setImage] = useState(null);
@@ -32,7 +33,7 @@ export default function Profile({ navigation }) {
     return (
         <>
             {
-                access_token ?
+                access_token && userData ?
                     <Box mt={5}>
                         <Center>
                             <Image

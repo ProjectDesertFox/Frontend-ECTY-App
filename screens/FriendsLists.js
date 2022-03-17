@@ -55,7 +55,7 @@ export const FriendsLists = ({navigation}) => {
                     {
                         userFriendList.map(el => (
                         <>
-                        <Text>{JSON.stringify(el)}</Text>
+                        {/* <Text>{JSON.stringify(el)}</Text> */}
                         <Box key={el.id} Flex flexDirection="row" justifyContent="space-between" alignItems='center'>
                             <Box mx={5} my={2} Flex flexDirection="row" justifyContent="flex-start" alignItems='center'>
                                 <Image
@@ -68,18 +68,10 @@ export const FriendsLists = ({navigation}) => {
                                     borderRadius={100} />
                                 <Box ml={5} maxW="60%" overflow="hidden">
                                     <Box>
-                                        <Text fontSize="lg" bold>{el.User.username}</Text>
+                                        <Text fontSize="lg" bold>{el.Friend.username}</Text>
                                     </Box>
                                 </Box>
                             </Box>
-                            {/* <Button onPress={addFriendFunc(el.id)} mx={5} borderRadius={70} colorScheme="red" size="sm" variant={"solid"} _text={{
-                                marginLeft: 4,
-                                marginRight: 4,
-                                color: "white",
-                                fontWeight: "bold"
-                            }} px="3">
-                            ADD
-                            </Button> */}
                         </Box>
                         </>
                         ))
