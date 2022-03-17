@@ -104,6 +104,7 @@ export const Home = ({ navigation }) => {
     );
   };
 
+  
   const RecomendedCard = ({ place }) => {
     return (
       <TouchableOpacity
@@ -203,7 +204,10 @@ export const Home = ({ navigation }) => {
     );
   };
 
-  const BestRate = ({ rate }) => {
+  let destinationFilter = destination.filter((e)=>{
+      return (e.pricePerOrg <= 100000)
+  })
+  const BestRate = ({ destinationFilter }) => {
     return (
       <View
         key="{item}"
@@ -222,10 +226,16 @@ export const Home = ({ navigation }) => {
       >
         <Image
           style={{ width: 100, height: 100, marginBottom: 5, padding: SPACING }}
-          source={{ uri: rate.image }}
+          source={{ uri: destinationFilter.image }}
         />
         <View style={{ paddingLeft: 7 }}>
-          <Text>{rate.name}</Text>
+          <Text>{destinationFilter.destinationName}</Text>
+        </View>
+        <View style={{ paddingLeft: 7 }}>
+          <Text>{destinationFilter.pricePerOrg}</Text>
+        </View>
+        <View style={{ paddingLeft: 7 }}>
+          <Text>{destinationFilter.city}</Text>
         </View>
       </View>
     );
@@ -357,11 +367,11 @@ export const Home = ({ navigation }) => {
             /> */}
    
           <View>
-            <Text style={style.sectionTitle}>Best Rate</Text>
+            <Text style={style.sectionTitle}>Best Price</Text>
             <View style={{ paddingLeft: 15, paddingRight: 20 }}>
                 {
-                    rates.map((el) => (
-                        <BestRate rate={el} key={el.id}/>
+                    destinationFilter.map((el) => (
+                        <BestRate destinationFilter={el} key={el.id}/>
                     ))
                 }
             </View>
