@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { getAccessToken, getUserData, loginUser, removeAccesstoken, stepOneKtp } from "../store/actions/userActions";
 import { useDispatch, useSelector } from 'react-redux'
 import * as ImagePicker from 'expo-image-picker';
+import Loading from "../components/loading";
+import Alerting from "../components/alert";
 
 export default function Profile({ navigation }) {
     // const [userData, setUserData] = useState([])
@@ -10,7 +12,8 @@ export default function Profile({ navigation }) {
     let userData = useSelector(state => state.user.userData)
     let dispatch = useDispatch()
     const [page, setPage] = useState('Profile')
-
+    let userLoading = useSelector(state => state.user.userLoading)
+    let userError = useSelector(state => state.user.userError)
     useEffect(() => {
         dispatch(getAccessToken())
         dispatch(getUserData(access_token))
@@ -26,14 +29,37 @@ export default function Profile({ navigation }) {
         });
         if (!result.cancelled) {
             setImage(result)
-            dispatch(stepOneKtp(result, setPage))
+            dispatch(stepOneKtp(result, setPage, access_token))
         }
     }
 
     return (
         <>
             {
-                access_token && userData ?
+                userLoading ?
+                <Loading></Loading>
+                : userError ?
+                <Alerting alert={userError}></Alerting>
+                : page === 'Upload KTP' ?
+                <>
+                    <Heading m={3} bold >UPLOAD KTP</Heading>
+                    <View>
+                        <Button
+                            onPress={() => pickImage()}
+                        >
+                            Upload File
+                        </Button>
+                        <Center>
+                            <Image
+                                source={{ uri: image ? image.uri : null }}
+                                style={{ width: 200, height: 200 }}
+                                alt='ktp'
+                                mt={50}
+                            />
+                        </Center>
+                    </View>
+                </>
+                : access_token && userData ?
                     <Box mt={5}>
                         <Center>
                             <Image
@@ -71,23 +97,22 @@ export default function Profile({ navigation }) {
                             <Text fonstSize='lg'>KTP</Text>
                             {
                                 userData ?
-                                    <>
-                                        {
-                                            userData.UserVerification.validKTP == 'false' || 'False' ?
-                                                <Button colorScheme="yellow" size="sm" variant={"solid"} _text={{
-                                                    color: "white",
-                                                    fontWeight: "bold"
-                                                }} px="3"
-                                                    onPress={() => setPage('Upload KTP')}
-                                                >
-                                                    Need Verification
-                                                </Button>
-                                                :
-                                                <Text fonstSize='lg'>{userData.UserVerification.validKTP}</Text>
-                                        }
-                                    </>
-                                    :
-                                    null
+                                <>
+                                {
+                                    userData.UserVerification.validKTP === 'false' ?
+                                        <Button onPress={() => setPage('Upload KTP')} colorScheme="yellow" size="sm" variant={"solid"} _text={{
+                                            color: "white",
+                                            fontWeight: "bold"
+                                        }} px="3"
+                                        >
+                                            Need Verification
+                                        </Button>
+                                        :
+                                        <Text fonstSize='lg'>{userData.UserVerification.validKTP}</Text>
+                                }
+                                </>
+                                :
+                                null
                             }
                         </Box>
                         {/* Ganti baru dari iqba diminta fifit */}
@@ -122,26 +147,8 @@ export default function Profile({ navigation }) {
                             </HStack>
                         </Stack>;
                     </Box>
-                    : page === 'Upload KTP' ?
-                        <>
-                            <Heading m={3} bold >UPLOAD KTP</Heading>
-                            <View>
-                                <Button
-                                    onPress={() => pickImage()}
-                                >
-                                    Upload File
-                                </Button>
-                                <Center>
-                                    <Image
-                                        source={{ uri: image ? image.uri : null }}
-                                        style={{ width: 200, height: 200 }}
-                                        alt='ktp'
-                                    />
-                                </Center>
-                            </View>
-                        </>
-                        :
-                        navigation.replace('Login')
+                    :
+                    navigation.replace('Login')
             }
         </>
     )

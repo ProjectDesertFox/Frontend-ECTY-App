@@ -102,12 +102,7 @@ export function loginUser(email, password, navigation){
       data: {email: email, password: password}
     }) 
     .then(({data}) => {
-<<<<<<< HEAD
-      console.log(data)
-
-=======
->>>>>>> thalia
-      dispatch(getUserData(data.access_token))
+      dispatch(getUserData(data.access_token1))
       dispatch(getUserFriendList(data.access_token))
       dispatch(changeAccessToken(data.access_token))
       navigation.navigate('Profile')
@@ -177,7 +172,6 @@ export function getUserFriendList(access_token){
       headers: {access_token}
     })
     .then(({data}) => {
-      console.log(data, 'SINI DATA FRIENDLISTNYA')
       dispatch(changeUserFriendList(data))
     })
     .catch(err => {
@@ -189,15 +183,13 @@ export function getUserFriendList(access_token){
   }
 }
 
-export function stepOneKtp(result, setPage){
+export function stepOneKtp(result, setPage, access_token){
   return async (dispatch, previousState) => {
-    console.log('masuk1')
     let formData = new FormData()
     let localUri = result.uri
     let filename = localUri.split('/').pop()
     let match = /\.(\w+)$/.exec(filename)
     let type = match ? `image/${match[1]}` : `image`
-    // console.log({ uri: localUri, name: filename, type }, '==')
     formData.append('ktp', { uri: localUri, name: filename, type })
     let access_token = await AsyncStorage.getItem('access_token')
     // let access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0aGFsaWEiLCJpYXQiOjE2NDczMzU4NDZ9.1hNddLHqdabpBfgpnLBTUPTtBcQYFqaNO_Zpy22kC4c'
@@ -212,7 +204,6 @@ export function stepOneKtp(result, setPage){
     })
     .then(async response => {
       const resjson = await response.json()
-      console.log(resjson,'response++++++++++');
       if (response.ok) {
         return resjson
       } else {
@@ -220,11 +211,10 @@ export function stepOneKtp(result, setPage){
       }
     })
     .then(data => {
-      console.log(data, 'HASILNYA WOE')
+      dispatch(userData(access_token))
       setPage('Profile')
     })
     .catch(err => {
-      console.log(err, 'ERRORRRRRRRR')
       dispatch(userError(err))
     })
     .finally(() => {
